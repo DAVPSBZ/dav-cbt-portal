@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAV Public Schools Bihar Zone - Application Form</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  /* =====================  MOBILE-FIRST BASE  ===================== */
+  :root { --ink:#1e1b3a; --muted:#6b6f85; --line:#dcdff0; --brand:#5b4bff; --brand2:#b44bff; --bg:#f4f3ff; --err:#d92d4b; --ok:#0f9d73; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; overflow-x:hidden; }
+  [hidden] { display:none !important; }
+  h1, h2, h3, h4 { margin:0; }
+  a { color:var(--brand); }
+
+  /* ---------- animations ---------- */
+  @keyframes rise { to { opacity:1; transform:none; } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-18px); } to { opacity:1; transform:none; } }
+  @keyframes pop { 0% { opacity:0; transform:scale(.4) rotate(-12deg); } 70% { transform:scale(1.08) rotate(3deg); } 100% { opacity:1; transform:none; } }
+  @keyframes float { 0%,100% { transform:translate(0,0) scale(1); } 33% { transform:translate(34px,-42px) scale(1.12); } 66% { transform:translate(-28px,30px) scale(.94); } }
+  @keyframes shine { 0% { left:-120%; } 35%,100% { left:170%; } }
+  @keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-4px); } }
+  @keyframes nudge { 0%,100% { transform:translateX(0); } 50% { transform:translateX(5px); } }
+  @keyframes glow { 0%,100% { box-shadow:0 0 0 6px rgba(255,255,255,.18), 0 10px 30px rgba(0,0,0,.35); } 50% { box-shadow:0 0 0 12px rgba(255,255,255,.07), 0 10px 36px rgba(255,255,255,.28); } }
+  @keyframes pulseP { 0%,100% { box-shadow:0 12px 26px rgba(0,0,0,.3), 0 0 0 0 rgba(236,72,153,.6); } 55% { box-shadow:0 12px 26px rgba(0,0,0,.3), 0 0 0 16px rgba(236,72,153,0); } }
+  @keyframes flip { 0%,45% { transform:rotate(0); } 55%,100% { transform:rotate(180deg); } }
+  @keyframes spark { 0%,100% { opacity:.25; transform:scale(.6); } 50% { opacity:1; transform:scale(1.15); } }
+  @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } .mbtn { opacity:1 !important; transform:none !important; } }
+
+  /* ---------- HOME ---------- */
+  #home { position:relative; min-height:100vh; min-height:100dvh; padding:26px 16px calc(34px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; align-items:center; overflow:hidden; color:#fff;
+          background:linear-gradient(160deg,#1e1b4b 0%,#3b2fcc 46%,#8b2fe8 100%); }
+  .blob { position:absolute; border-radius:50%; filter:blur(42px); opacity:.55; animation:float 15s ease-in-out infinite; pointer-events:none; }
+  .blob.b1 { width:260px; height:260px; background:#ff4d8d; top:-80px; left:-90px; }
+  .blob.b2 { width:310px; height:310px; background:#22d3ee; bottom:-100px; right:-110px; animation-duration:19s; animation-delay:-4s; }
+  .blob.b3 { width:210px; height:210px; background:#ffb020; top:44%; left:58%; animation-duration:23s; animation-delay:-9s; opacity:.4; }
+  .hero { position:relative; z-index:2; text-align:center; max-width:560px; width:100%; margin:4px 0 22px; animation:fadeDown .8s both; }
+  .hero img { width:96px; height:96px; border-radius:50%; background:#fff; padding:6px; object-fit:contain; animation:pop .9s .1s both, glow 3.6s 1.2s infinite; }
+  .hero h1 { font-size:22px; line-height:1.25; margin-top:14px; letter-spacing:.2px; text-shadow:0 2px 14px rgba(0,0,0,.3); }
+  .hero .sub { margin:6px 0 0; font-size:14.5px; opacity:.93; }
+  .hero .tag { display:inline-block; margin-top:12px; padding:6px 16px; border-radius:999px; font-size:13px; font-weight:700; background:rgba(255,255,255,.17); border:1px solid rgba(255,255,255,.38); backdrop-filter:blur(6px); }
+  .menu { position:relative; z-index:2; width:100%; max-width:600px; display:grid; gap:14px; }
+  .mbtn { position:relative; overflow:hidden; display:flex; align-items:center; gap:14px; width:100%; text-align:left; border:0; border-radius:22px; padding:16px; color:#fff; font:inherit; cursor:pointer;
+          box-shadow:0 12px 26px rgba(0,0,0,.28); opacity:0; transform:translateY(28px); animation:rise .7s cubic-bezier(.2,.9,.3,1.15) forwards; transition:transform .18s, filter .18s; touch-action:manipulation; }
+  .mbtn:nth-child(1) { animation-delay:.25s; } .mbtn:nth-child(2) { animation-delay:.4s; } .mbtn:nth-child(3) { animation-delay:.55s; } .mbtn:nth-child(4) { animation-delay:.7s; }
+  .mbtn:hover { filter:brightness(1.07); transform:translateY(-3px); } .mbtn:active { transform:scale(.965); }
+  .mbtn::after { content:""; position:absolute; top:0; left:-120%; width:55%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent); transform:skewX(-20deg); animation:shine 4.8s 1.6s infinite; pointer-events:none; }
+  .mbtn .ic { flex:none; width:56px; height:56px; border-radius:18px; background:rgba(255,255,255,.24); display:flex; align-items:center; justify-content:center; animation:bob 3.2s ease-in-out infinite; }
+  .mbtn:nth-child(2) .ic { animation-delay:-.7s; } .mbtn:nth-child(3) .ic { animation-delay:-1.4s; } .mbtn:nth-child(4) .ic { animation-delay:-2.1s; }
+  .mbtn b { display:block; font-size:16.5px; line-height:1.28; }
+  .mbtn small { display:block; font-size:12.8px; opacity:.94; margin-top:3px; line-height:1.35; }
+  .mbtn .go { margin-left:auto; flex:none; opacity:.92; animation:nudge 1.7s ease-in-out infinite; }
+  .mchip { display:inline-block; margin-top:7px; padding:2px 11px; border-radius:999px; background:rgba(255,255,255,.27); font-size:11.8px; font-weight:800; letter-spacing:.2px; }
+  .mchip.bad { background:#fff; color:#d92d4b; } .mchip.live { background:#fff; color:#0f9d73; }
+  .mbtn.edit { background:linear-gradient(135deg,#ff9f1c,#ff4d4d); }
+  .mbtn.dl { background:linear-gradient(135deg,#06b6a4,#2563eb); }
+  .mbtn.apply { background:linear-gradient(135deg,#7c3aed,#ec4899); animation:rise .7s .55s cubic-bezier(.2,.9,.3,1.15) forwards, pulseP 2.8s 1.6s infinite; }
+  .mbtn.admin { background:linear-gradient(135deg,#475569,#0f172a); }
+  .homefoot { position:relative; z-index:2; margin-top:22px; font-size:12.5px; opacity:.85; text-align:center; animation:fadeUp 1s 1s both; }
+  @media (min-width:760px) { .menu { grid-template-columns:1fr 1fr; max-width:860px; } .hero h1 { font-size:28px; } }
+
+  /* ---------- inner views ---------- */
+  .appbar { position:sticky; top:0; z-index:30; display:flex; align-items:center; gap:10px; padding:10px 12px; padding-top:calc(10px + env(safe-area-inset-top)); color:#fff;
+            background:linear-gradient(120deg,#312e81,#5b4bff 55%,#a24bff); box-shadow:0 4px 14px rgba(49,46,129,.35); }
+  .appbar .back { flex:none; width:44px; height:44px; border-radius:50%; border:0; background:rgba(255,255,255,.2); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .appbar .back:active { transform:scale(.92); }
+  .appbar .ttl { font-weight:700; font-size:16.5px; line-height:1.25; }
+  .vmain { max-width:1000px; margin:0 auto; padding:14px 12px 28px; animation:fadeUp .45s both; }
+  header.top { position:relative; background:linear-gradient(120deg,#312e81 0%,#5b4bff 48%,#a24bff 100%); color:#fff; padding:16px; text-align:center; display:flex; align-items:center; justify-content:center; gap:12px; box-shadow:0 3px 12px rgba(49,46,129,.35); }
+  header.top img { height:50px; background:#fff; border-radius:50%; padding:3px; }
+  header.top h1 { font-size:19px; } header.top p { margin:2px 0 0; font-size:13.5px; opacity:.92; }
+
+  /* ---------- form building blocks ---------- */
+  .card { background:#fff; border-radius:18px; padding:14px; margin:0 0 14px; box-shadow:0 6px 18px rgba(60,50,160,.10); }
+  fieldset { background:#fff; border:0; border-radius:18px; box-shadow:0 6px 18px rgba(60,50,160,.10); margin:0 0 16px; padding:16px 14px 16px; min-width:0; }
+  legend { font-weight:800; color:#fff; background:linear-gradient(120deg,var(--brand),var(--brand2)); padding:6px 14px; border-radius:999px; font-size:14px; margin-left:-2px; box-shadow:0 4px 10px rgba(91,75,255,.35); }
+  .grid { display:grid; gap:14px; grid-template-columns:1fr; margin-top:6px; }
+  .span2, .full { grid-column:1 / -1; }
+  label { display:block; font-size:13.5px; color:var(--muted); margin-bottom:4px; font-weight:600; }
+  input[type=text], input[type=tel], input[type=email], input[type=date], input[type=password], select, textarea {
+    width:100%; min-height:48px; padding:11px 13px; border:1.5px solid var(--line); border-radius:12px; font:inherit; background:#fff; color:var(--ink); min-width:0; -webkit-appearance:none; appearance:none; }
+  select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%235b4bff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px; }
+  input[type=date] { -webkit-appearance:none; appearance:none; }
+  input:focus, select:focus, textarea:focus { outline:0; border-color:var(--brand); box-shadow:0 0 0 4px rgba(91,75,255,.18); }
+  input[readonly], input:disabled, select:disabled, textarea:disabled { background:#f1f2f8; color:#7a7e93; }
+  input[type=checkbox], input[type=radio] { width:22px; height:22px; accent-color:var(--brand); flex:none; margin:0; }
+  textarea { resize:vertical; min-height:70px; }
+  input[type=file] { width:100%; padding:10px; border:1.5px dashed var(--brand); border-radius:12px; background:#f7f6ff; font:inherit; }
+  .bad { border-color:var(--err) !important; box-shadow:0 0 0 4px rgba(217,45,75,.16) !important; }
+  .req::after { content:" *"; color:var(--err); }
+  .hint { font-size:12.5px; color:var(--muted); margin-top:4px; } .hint.err { color:var(--err); font-weight:700; }
+  .inline { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding-top:2px; }
+  .inline label { display:inline-flex; gap:8px; align-items:center; margin:0; color:var(--ink); font-size:15px; font-weight:600; padding:9px 14px; border:1.5px solid var(--line); border-radius:999px; background:#fff; }
+  .inline label:has(input:checked) { border-color:var(--brand); background:#efecff; color:var(--brand); }
+  .inline .na { border:0; background:none; padding:0 8px 0 0; border-right:1px solid var(--line); border-radius:0; }
+  .fw { display:flex; align-items:center; gap:8px; } .fw > :last-child { flex:1; min-width:0; }
+  .na { display:inline-flex !important; align-items:center; gap:5px; font-size:12px !important; color:var(--muted) !important; white-space:nowrap; margin:0 !important; cursor:pointer; font-weight:700 !important; }
+  .rowna { padding:2px 8px; border-radius:999px; background:#f1f2f8; }
+  .tna { margin:4px 0 8px; }
+  .rollrow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .rollrow .pfx { font-weight:800; background:#efecff; color:var(--brand); border-radius:12px; padding:12px 12px; }
+  .rollrow input { flex:1; min-width:120px; width:auto; }
+  .photo-box { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  #photoPrev { width:105px; height:135px; border:2px dashed var(--line); border-radius:12px; object-fit:cover; background:#f3f5f8; }
+  a.lnk { color:var(--brand); cursor:pointer; font-size:13.5px; font-weight:700; }
+  .banner { background:#fff8e1; border:1px solid #f0d78c; padding:10px 14px; border-radius:14px; margin:0 0 14px; font-size:14.5px; }
+  .editrow { display:grid; gap:12px; grid-template-columns:1fr; margin-top:10px; }
+  #editPanel h3 { color:var(--brand); font-size:18px; }
+  #certPrev { border:1px solid var(--line); background:#eceff3; height:60vh; min-height:340px; overflow:auto; padding:8px; margin-top:8px; text-align:center; border-radius:12px; }
+  #certPrev canvas, #pdfModalBody canvas { width:100%; max-width:980px; height:auto; display:block; margin:0 auto 8px; border:1px solid #ccd3dd; background:#fff; }
+  #expBox.off table { opacity:.55; pointer-events:none; }
+
+  /* ---------- buttons ---------- */
+  .btn { background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff; border:0; min-height:48px; padding:12px 22px; border-radius:14px; font:700 15.5px inherit; font-family:inherit; cursor:pointer; box-shadow:0 6px 14px rgba(91,75,255,.35); transition:transform .15s, filter .15s; touch-action:manipulation; }
+  .btn:active { transform:scale(.97); } .btn:hover { filter:brightness(1.06); }
+  .btn.alt { background:#fff; color:var(--brand); border:1.5px solid var(--brand); box-shadow:none; }
+  .btn.block { width:100%; }
+  .btn:disabled { opacity:.55; cursor:wait; }
+  .submitbar { position:sticky; bottom:0; z-index:20; margin:6px -12px 0; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(244,243,255,.94); backdrop-filter:blur(8px); border-top:1px solid var(--line); }
+  #msg { color:var(--err); font-weight:700; white-space:pre-wrap; font-size:14px; } #msg:not(:empty) { margin-bottom:8px; }
+  #submitBtn { width:100%; min-height:54px; font-size:17px; }
+
+  /* ---------- tables: scrollable on desktop, stacked cards on phones ---------- */
+  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table.ft { border-collapse:collapse; width:100%; min-width:1150px; }
+  table.ft th, table.ft td { border:1px solid var(--line); padding:5px; font-size:13px; vertical-align:top; }
+  table.ft th { background:#f3f5f8; text-align:center; font-weight:700; }
+  table.ft input, table.ft select { min-height:40px; padding:6px 8px; font-size:13.5px; border-radius:8px; }
+  table.ft textarea { min-height:48px; border-radius:8px; }
+  @media (max-width:820px) {
+    table.mt { min-width:0 !important; }
+    table.mt, table.mt tbody, table.mt tr, table.mt td { display:block; width:100%; }
+    table.mt tr:first-child { display:none; }
+    table.mt tr { margin:0 0 12px; padding:12px; border:1.5px solid var(--line); border-radius:16px; background:#fcfcff; box-shadow:0 3px 10px rgba(60,50,160,.07); }
+    table.mt td { border:0 !important; padding:5px 0 !important; font-size:15px; }
+    table.mt td::before { content:attr(data-th); display:block; font-size:12px; color:var(--muted); font-weight:700; margin-bottom:3px; }
+    table.mt td:first-child { display:flex; align-items:center; justify-content:space-between; font-weight:800; font-size:16px; color:var(--brand); border-bottom:1px dashed var(--line) !important; margin-bottom:6px; padding-bottom:8px !important; }
+    table.mt td:first-child::before { display:none; }
+    table.mt td input, table.mt td select, table.mt td textarea { font-size:16px; min-height:48px; padding:11px 13px; border-radius:12px; }
+    table.mt .fw { width:100%; }
+    tr.isna { opacity:.6; }
+  }
+  tr.isna td { background:#f7f7f9; }
+  table.ft td > label:not(.na) { display:flex; align-items:center; gap:8px; margin:6px 0 0; color:var(--ink); font-size:14px; }
+
+  /* ---------- notice / done cards ---------- */
+  .notice { text-align:center; background:#fff; border-radius:24px; padding:30px 20px 26px; box-shadow:0 14px 34px rgba(60,50,160,.16); position:relative; overflow:hidden; animation:pop .7s both; }
+  .notice::before { content:""; position:absolute; inset:0 0 auto 0; height:8px; background:linear-gradient(90deg,#ff4d4d,#ff9f1c,#ffd23f); }
+  .notice.soon::before, .notice.pdf::before { background:linear-gradient(90deg,#06b6a4,#2563eb,#7c3aed); }
+  .nicon { width:96px; height:96px; margin:6px auto 12px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#ffe3e3,#fff1d6); position:relative; }
+  .notice.soon .nicon, .notice.pdf .nicon { background:linear-gradient(135deg,#d8f7f2,#dde9ff); }
+  .nicon svg { animation:flip 4s ease-in-out infinite; }
+  .nicon i { position:absolute; width:9px; height:9px; border-radius:50%; background:#ff9f1c; animation:spark 2.2s infinite; } .nicon i:nth-child(2) { top:6px; right:10px; } .nicon i:nth-child(3) { bottom:10px; left:4px; background:#ec4899; animation-delay:-.8s; } .nicon i:nth-child(4) { top:30px; left:-4px; background:#2563eb; animation-delay:-1.5s; }
+  .notice h2 { font-size:28px; color:#d92d4b; letter-spacing:.3px; } .notice.soon h2, .notice.pdf h2 { color:#2563eb; }
+  .notice p { margin:10px 0 0; color:var(--muted); font-size:15.5px; } .notice p.big { color:var(--ink); font-weight:800; font-size:18px; margin-top:14px; }
+  .notice .btn { margin-top:20px; }
+  .done { text-align:center; background:#fff; border-radius:24px; padding:28px 18px; box-shadow:0 14px 34px rgba(60,50,160,.16); animation:pop .7s both; }
+  .done .tick { width:84px; height:84px; margin:0 auto 10px; border-radius:50%; background:linear-gradient(135deg,#0f9d73,#22d3ee); display:flex; align-items:center; justify-content:center; animation:pop .9s .2s both, glow 3s 1s infinite; }
+  .done h2 { color:var(--brand); font-size:24px; } .done .id { font:800 17px monospace; margin:6px 0 16px; word-break:break-all; color:var(--ink); }
+  .done .btn { margin:5px 0; width:100%; }
+
+  /* ---------- modal = bottom sheet on phones ---------- */
+  .modal { position:fixed; inset:0; background:rgba(15,23,42,.6); z-index:60; display:flex; align-items:flex-end; justify-content:center; }
+  .modal .mbox { background:#fff; border-radius:22px 22px 0 0; width:100%; max-width:780px; max-height:88vh; overflow:auto; padding:16px 16px calc(18px + env(safe-area-inset-bottom)); animation:fadeUp .35s both; }
+  .modal.wide .mbox { max-width:1050px; height:90vh; }
+  .modal h3 { margin:0 0 10px; color:var(--brand); }
+  .modal .mclose { float:right; min-height:40px; padding:6px 16px; }
+  @media (min-width:700px) { .modal { align-items:center; padding:14px; } .modal .mbox { border-radius:20px; } }
+
+  /* ---------- admin / results / scan ---------- */
+  .dash { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+  .kpi { border-radius:16px; padding:12px 14px; color:#fff; box-shadow:0 6px 14px rgba(60,50,160,.15); animation:fadeUp .5s both; }
+  .kpi:nth-child(6n+1) { background:linear-gradient(135deg,#5b4bff,#8b5cf6); } .kpi:nth-child(6n+2) { background:linear-gradient(135deg,#2563eb,#22d3ee); } .kpi:nth-child(6n+3) { background:linear-gradient(135deg,#ec4899,#f97316); }
+  .kpi:nth-child(6n+4) { background:linear-gradient(135deg,#0f9d73,#22c55e); } .kpi:nth-child(6n+5) { background:linear-gradient(135deg,#f59e0b,#ef4444); } .kpi:nth-child(6n+6) { background:linear-gradient(135deg,#475569,#0f172a); }
+  .kpi span { font-size:12px; opacity:.92; } .kpi b { display:block; font-size:28px; line-height:1.15; }
+  table.at { border-collapse:collapse; width:100%; min-width:1000px; background:#fff; }
+  table.at th, table.at td { border:1px solid var(--line); padding:6px 8px; font-size:13px; text-align:left; }
+  table.at th { background:#f3f5f8; position:sticky; top:0; }
+  table.at tr.pst td { background:#f3f5f8; font-weight:700; }
+  .filters { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .filters > div:last-child { grid-column:1 / -1; }
+  .actionbar { display:grid; gap:10px; }
+  .actionbar .btn { width:100%; font-size:14.5px; }
+  .pager { display:flex; gap:8px; align-items:center; margin:10px 0; flex-wrap:wrap; }
+  .sc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; margin-top:12px; }
+  .sc-grid span { display:block; font-size:12px; color:var(--muted); } .sc-grid b { font-size:15.5px; word-break:break-word; }
+  .sc-name { font-size:22px; font-weight:800; color:var(--brand); }
+  .sc-ok { color:#0f766e; font-weight:700; margin:8px 0; } .sc-note { color:#92400e; font-size:13.5px; margin:6px 0; }
+  .pinbox { text-align:center; padding:22px 16px; }
+  .pinbox .lock { width:76px; height:76px; margin:0 auto 10px; border-radius:50%; background:linear-gradient(135deg,#5b4bff,#b44bff); display:flex; align-items:center; justify-content:center; animation:pop .8s both, glow 3s 1s infinite; }
+  #scPin { text-align:center; font-size:30px; letter-spacing:12px; font-weight:800; min-height:60px; }
+  .lvl { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:14px; }
+  .lvl div { background:#fff; border-radius:14px; padding:10px 12px; box-shadow:0 4px 12px rgba(60,50,160,.1); font-size:13px; }
+  .lvl b { display:block; font-size:15px; color:var(--brand); margin-bottom:2px; }
+
+  @media (min-width:760px) {
+    .grid { grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); }
+    .span2 { grid-column:span 2; }
+    .editrow { grid-template-columns:1fr 1fr auto auto; align-items:end; }
+    .dash { grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); }
+    .filters { grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); } .filters > div:last-child { grid-column:auto; }
+    .actionbar { display:flex; flex-wrap:wrap; align-items:center; } .actionbar .btn { width:auto; }
+    .submitbar { margin:6px 0 0; border-radius:16px; } #submitBtn { width:auto; min-width:280px; }
+    .done .btn { width:auto; min-width:220px; }
+    #certPrev { height:72vh; }
+  }
+
+/* ===== PRINT VIEW (A4 x 2, laid out like the original DAV application form) ===== */
+  #print { display:none; }
+  #toolbar { position:sticky; top:0; background:linear-gradient(120deg,#312e81,#4f46e5); padding:10px; text-align:center; z-index:9; }
+  #toolbar .btn { margin:0 5px; padding:8px 18px; }
+  .sheet { width:210mm; height:297mm; margin:12px auto; background:#fff; padding:4mm 4mm 7mm; position:relative; overflow:hidden;
+           font:10pt/1.25 "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif; color:#000; box-shadow:0 1px 6px rgba(0,0,0,.25); }
+  .sheet * { box-sizing:border-box; }
+  .frame { position:relative; height:286mm; border:0.4mm solid #000; padding:2.5mm 4mm 0; }
+  .pgno { position:absolute; bottom:-3.4mm; left:50%; transform:translateX(-50%); background:#222; color:#fff; border-radius:3mm; font:900 italic 10pt "Arial Black", Arial, sans-serif; padding:0.3mm 2.6mm; }
+  .pto { position:absolute; right:5mm; bottom:1.2mm; font:900 italic 8pt "Arial Black", Arial, sans-serif; }
+
+  .hd { position:relative; display:flex; align-items:flex-start; height:28mm; }
+  .hd .logo { width:27mm; flex:none; padding-top:2mm; } .hd .logo img { width:25mm; height:auto; display:block; }
+  .hd .hmid { flex:1; text-align:center; padding-top:0.5mm; }
+  .hd .om { font:700 11pt "Mangal", "Nirmala UI", serif; letter-spacing:.3mm; }
+  .hd .t1 { font:900 24pt/1 "Arial Black", Arial, sans-serif; letter-spacing:.2mm; margin-top:.5mm; white-space:nowrap; }
+  .hd .t2 { font:900 17pt/1 "Arial Black", Arial, sans-serif; letter-spacing:.8mm; margin-top:1mm; padding-left:56mm; }
+  .hd .t3 { display:inline-block; margin-top:1mm; margin-left:30mm; font:900 11.5pt "Arial Black", Arial, sans-serif; font-variant:small-caps; letter-spacing:.2mm; border:0.3mm solid #000; border-bottom-width:0.9mm; padding:0 1.5mm; }
+  .hd .qr { position:absolute; top:7.5mm; right:0; width:19mm; height:19mm; background:#fff; padding:0.5mm; }
+  .hd .qr svg, .hd .qr img { width:100%; height:100%; display:block; }
+  .hd .fcn { position:absolute; top:-2.5mm; right:-4mm; display:flex; border:0.3mm solid #000; }
+  .hd .fcn .l { width:26mm; border-right:0.3mm solid #000; font:700 6.5pt/1.2 Arial, sans-serif; font-variant:small-caps; padding:0.6mm 1mm; }
+  .hd .fcn .b { width:46mm; height:9mm; display:flex; align-items:center; justify-content:center; font:700 8.2pt Arial, sans-serif; letter-spacing:.1mm; white-space:nowrap; }
+
+  .of { position:relative; margin-top:4.5mm; border:1.2mm double #000; height:39mm; padding:2.2mm 2.5mm 0; }
+  .of .pill { position:absolute; top:-3.6mm; left:50%; transform:translateX(-50%); background:#222; color:#fff; border-radius:3mm; padding:0.4mm 5mm; font:italic 700 9.5pt Georgia, serif; white-space:nowrap; }
+  .of .rem { font-style:italic; font-size:10pt; }
+  .of .oj { display:flex; align-items:center; gap:2mm; font-style:italic; font-size:8.5pt; margin-top:0.8mm; }
+  .of .sq { width:5.2mm; height:5.2mm; border:0.3mm solid #000; display:inline-block; flex:none; }
+  .of .o3 { display:flex; margin-top:1.6mm; height:13mm; }
+  .of .forps { width:41mm; border:0.3mm solid #000; padding:1mm 1.2mm; font:700 9.5pt Georgia, serif; }
+  .of .pc { width:34mm; display:flex; flex-direction:column; }
+  .of .pcga { display:flex; height:6.4mm; } .of .pcga span { flex:1; border:0.3mm solid #000; border-left:0; text-align:center; font:italic 900 11pt/5.8mm Georgia, serif; } .of .pcga sup { font-size:6pt; }
+  .of .post { flex:1; border:0.3mm solid #000; border-top:0; border-left:0; padding:0.6mm 1.2mm; font:italic 700 9.5pt Georgia, serif; }
+  .of .mx { width:27mm; display:flex; flex-direction:column; }
+  .of .mx .h { height:8mm; border:0.3mm solid #000; border-left:0; font:700 6.3pt/1.1 Arial, sans-serif; font-variant:small-caps; padding:0.6mm 1mm; }
+  .of .mx .bd { flex:1; border:0.3mm solid #000; border-top:0; border-left:0; }
+  .of .note { position:absolute; left:2.5mm; bottom:0.8mm; font:italic 6.4pt Georgia, serif; }
+  .of .sg { position:absolute; right:5mm; bottom:3.5mm; width:56mm; text-align:center; font-style:italic; font-size:10pt; line-height:1.15; }
+  .of .sg i { display:block; border-top:0.3mm solid #000; margin-bottom:1mm; }
+
+  .corr { margin-top:3.2mm; font:italic 700 10pt Georgia, serif; }
+  .idw { display:flex; margin-top:1.5mm; }
+  .idl { flex:1; min-width:0; }
+  .photo { width:35mm; height:45mm; border:0.35mm solid #000; margin:1mm 0 0 6mm; flex:none; }
+  .photo img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  .fr { display:flex; align-items:flex-end; min-height:6.5mm; margin-top:0.7mm; }
+  .fr .n { width:7mm; flex:none; font-style:italic; } .fr .n2 { width:14mm; flex:none; }
+  .fr .lb { white-space:nowrap; font-style:italic; margin-right:2mm; } .fr .lb.w { width:44mm; margin-right:0; } .fr .cl { width:4mm; flex:none; }
+  .fr .v { flex:1; min-width:0; border-bottom:0.25mm solid #000; font:700 9.3pt Arial, sans-serif; padding:0 1.2mm; min-height:5.2mm; line-height:1.2; word-break:break-word; }
+  .fr .v.nb { border-bottom:0; } .fr .v.dot { border-bottom:0.3mm dotted #000; } .fr .v.s { flex:none; width:12mm; text-align:center; } .fr .v.m { flex:none; width:30mm; }
+  .fr .gap { flex:none; width:5mm; }
+  .fr .ind { margin-left:7mm; }
+  .chk { display:inline-flex; align-items:center; justify-content:center; width:5mm; height:5mm; border:0.3mm solid #000; font:900 8.5pt Arial; vertical-align:middle; margin:0 3mm 0 1.2mm; }
+  .dts { display:flex; align-items:center; } .dts i { width:6mm; height:6.3mm; border:0.3mm solid #000; display:block; } .dts b { width:5mm; text-align:center; font-weight:400; }
+
+  table.pt { border-collapse:collapse; width:100%; }
+  table.pt th, table.pt td { border:0.3mm solid #000; padding:0.6mm 1.2mm; text-align:left; vertical-align:middle; }
+  table.pt th { font:italic 700 7.6pt/1.15 Georgia, serif; text-align:center; }
+  table.pt td { font:700 8.4pt/1.15 Arial, sans-serif; word-break:break-word; height:var(--rh, 7.8mm); }
+  table.pt td.sn { font:400 9pt Georgia, serif; font-style:italic; text-align:left; vertical-align:middle; width:9mm; }
+  .pr .pt td { height:var(--rh, 8mm); }
+  .p1 table.pt td { height:8.8mm; }
+  .bar7 { display:inline-block; background:#222; color:#fff; font:900 10.5pt "Arial Black", Arial, sans-serif; padding:0.6mm 2.5mm; letter-spacing:0.2mm; margin-bottom:1.4mm; }
+  .cn { font:italic 400 7pt Georgia, serif; color:#777; }
+  .decl { margin:1.5mm 0 0 7mm; font:italic 9.4pt/1.3 Georgia, serif; text-align:justify; }
+  .refs { display:flex; gap:7mm; margin-top:1mm; } .refs > div { flex:1; min-width:0; } .refs .v { margin-top:1.4mm; }
+  .sg2 { display:flex; gap:8mm; } .sg2 > div { flex:1; min-width:0; }
+
+  @page { size:A4; margin:0; }
+  @media print {
+    body { background:#fff; }
+    #app, #adminApp, #scanApp, #srApp, #toolbar, .modal { display:none !important; }
+    #print { display:block !important; }
+    .sheet { zoom:1 !important; margin:0; box-shadow:none; page-break-after:always; break-after:page; }
+    .sheet:last-child { page-break-after:auto; break-after:auto; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  
+  main { max-width:1000px; margin:0 auto; padding:14px 12px 28px; }
+  .mbtn.off { filter:saturate(.45) brightness(.96); }
+  #toolbar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  @media screen { .sheet { zoom:var(--zs,1); } }
+  .tethead { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:20px 0 8px; }
+  .tethead h4 { font-size:16px; color:var(--brand); } .tethead h4 span { display:block; font-size:12px; font-weight:600; color:var(--muted); margin-top:2px; }
+  .hi { font-family:"Noto Sans Devanagari","Mangal","Nirmala UI","Kohinoor Devanagari",system-ui,sans-serif; line-height:1.75; background:#faf8ff; border-left:4px solid var(--brand); padding:10px 12px; border-radius:8px; font-size:15px; margin-top:0; }
+  .tetcap { font:italic 700 8.5pt Georgia, serif; margin:1.6mm 0 0.8mm; } .tetcap span { font-weight:400; font-size:7.4pt; }
+  .decl.hi { background:none; border:0; padding:0; border-radius:0; font:normal 8.4pt/1.4 "Mangal","Nirmala UI","Noto Sans Devanagari",serif; margin:1mm 0 0 7mm; text-align:justify; }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ================= HOME: 4 animated buttons ================= -->
+  <section id="home">
+    <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
+    <div class="hero">
+      <img src="https://davrecruit.davcmc.in/assets/img/logo.png" alt="DAV logo" onerror="this.style.display='none'">
+      <h1>D.A.V. PUBLIC SCHOOLS<br>BIHAR ZONE</h1>
+      <p class="sub">DAV CBT Phase - II (Demo / Interview)</p>
+      <span class="tag">Online Application Portal</span>
+      <div id="homeErr" class="hint err" style="color:#ffe4e6;margin-top:10px" hidden></div>
+    </div>
+
+    <div class="menu">
+      <button type="button" class="mbtn edit" id="btnEdit">
+        <span class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+        <span><b>Edit Existing Data</b><small>Already applied? Update your application (maximum 2 times)</small><span class="mchip" id="chipEdit" hidden></span></span>
+        <svg class="go" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <button type="button" class="mbtn dl" id="btnDl">
+        <span class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></svg></span>
+        <span><b>Download DAV CBT Phase - II (Demo/ Interview) Application Form</b><small>Get your filled form as a PDF with QR code</small><span class="mchip" id="chipDl" hidden></span></span>
+        <svg class="go" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <button type="button" class="mbtn apply" id="btnApply">
+        <span class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg></span>
+        <span><b>Apply for DAV CBT Phase - II (Demo/ Interview)</b><small>Fill the online application form</small><span class="mchip" id="chipApply"></span></span>
+        <svg class="go" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <button type="button" class="mbtn admin" id="adminLink">
+        <span class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5l8-3z"/><rect x="9" y="10" width="6" height="5" rx="1"/><path d="M10 10V8.5a2 2 0 014 0V10"/></svg></span>
+        <span><b>DAV Admin Login</b><small>Dashboard, exports, PDF forms &amp; scan results</small></span>
+        <svg class="go" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="homefoot">Need help? Please contact the Administrator.</div>
+  </section>
+
+  <!-- ================= INNER VIEWS ================= -->
+  <section id="view" hidden>
+    <div class="appbar">
+      <button type="button" class="back" id="vBack" aria-label="Back to home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="ttl" id="vTitle"></div>
+    </div>
+    <main class="vmain">
+      <div id="vNotice" hidden></div>
+
+      <div class="card" id="editPanel" hidden>
+        <h3 id="ePanelTitle"></h3>
+        <p class="hint" style="margin:2px 0 0">Enter your CBT Roll Number and Date of Birth.</p>
+        <div class="editrow">
+          <div><label>CBT Roll Number</label><input type="text" id="eRoll" inputmode="numeric" maxlength="10"></div>
+          <div><label>Date of Birth</label><input type="date" id="eDob"></div>
+          <button type="button" class="btn" id="eLoad">Edit my application</button>
+          <button type="button" class="btn" id="ePrint">Download / Print my application (PDF)</button>
+        </div>
+        <div id="eMsg" class="hint err"></div>
+      </div>
+
+      <div class="banner" id="editBanner" hidden></div>
+
+<form id="f" autocomplete="off" novalidate>
+
+      <fieldset>
+        <legend>Interview, Post &amp; CBT Roll Number</legend>
+        <div class="grid">
+          <div class="span2"><label class="req">A. Place of Interview</label><select name="place" id="place" data-label="Place of Interview"></select><a href="#" id="venueLink" class="lnk" hidden>View schools under this venue</a></div>
+          <div><label>B. Date of Interview</label><input type="date" name="interviewDate" disabled data-off data-novalidate></div>
+          <div><label class="req">C. Post</label><select name="post" id="post" data-label="Post"></select></div>
+          <div><label class="req">C. Subject</label><select name="subject" id="subject" data-label="Subject"></select></div>
+          <div class="full">
+            <label class="req">D. CBT Roll Number</label>
+            <div class="rollrow"><span class="pfx" id="pfx"></span>
+              <input type="text" name="cbtRoll" id="roll" inputmode="numeric" maxlength="10" data-digits data-label="CBT Roll Number" data-re="^[0-9]{1,10}$" data-msg="CBT Roll Number must contain digits only">
+              <span>Year :</span><b id="cbtYearTxt"></b></div>
+            <div id="rollMsg" class="hint"></div>
+          </div>
+          <div class="full"><label class="req">PCE Qualifying Certificate (PDF, max 5 MB)</label><input type="file" id="cert" accept="application/pdf">
+            <div id="certNote" class="hint"></div>
+            <div><button type="button" class="btn alt" id="pdfBig" style="padding:5px 12px;margin-top:6px" hidden>View full screen</button></div>
+            <div id="certPrev" hidden></div></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Personal Details</legend>
+        <div class="grid">
+          <div class="span2"><label class="req">1(a) Name</label>
+            <div style="display:flex;gap:6px"><select id="title" style="width:90px"><option>Mr.</option><option>Mrs.</option><option>Miss</option></select>
+            <input type="text" id="pname" name="name" data-label="Name"></div></div>
+          <div><label class="req">1(b) Father's Name</label><input type="text" name="fatherName" data-label="Father's Name"></div>
+          <div><label class="req">1(c) Mother's Name</label><input type="text" name="motherName" data-label="Mother's Name"></div>
+          <div><label class="req">2. Date of Birth</label><input type="date" name="dob" id="dob" data-label="Date of Birth"><div id="dobMsg" class="hint"></div></div>
+          <div class="span2"><label id="ageLbl">Age</label>
+            <div style="display:flex;gap:6px;align-items:center">
+              <input type="text" name="ageY" id="ageY" readonly style="width:80px"> Y
+              <input type="text" name="ageM" id="ageM" readonly style="width:80px"> M
+              <input type="text" name="ageD" id="ageD" readonly style="width:80px"> D</div></div>
+          <div><label class="req">Gender</label>
+            <div class="inline"><label><input type="radio" name="gender" value="Male" data-label="Gender"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+            <label><input type="radio" name="gender" value="Transgender"> Transgender</label></div></div>
+          <div><label class="req">3. Marital Status</label>
+            <div class="inline"><label><input type="radio" name="maritalStatus" value="Single" data-label="Marital Status"> Single</label>
+            <label><input type="radio" name="maritalStatus" value="Married"> Married</label></div></div>
+          <div id="spouseWrap" hidden><label class="req">Spouse Name</label><input type="text" name="spouseName" data-label="Spouse Name"></div>
+          <div><label class="req">4. Category</label><select name="category" id="category" data-label="Category"></select></div>
+          <div class="full"><label class="req">Are you working in any DAV School under Bihar Zone?</label>
+            <div class="inline"><label><input type="radio" name="workingDAV" value="Yes" data-label="Working in DAV School"> Yes</label>
+            <label><input type="radio" name="workingDAV" value="No"> No</label></div></div>
+          <div id="schoolWrap" class="full" hidden>
+            <div class="grid">
+              <div><label class="req">School Code (e.g. BR-008)</label><input type="text" name="davSchoolCode" id="schoolCode" maxlength="12" data-label="School Code" style="text-transform:uppercase"><div id="schoolMsg" class="hint err"></div></div>
+              <div class="span2"><label>School Name</label><input type="text" name="davSchoolName" id="schoolName" readonly data-novalidate></div>
+            </div>
+          </div>
+          <div class="full photo-box">
+            <img id="photoPrev" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+            <div><label class="req">Passport size photograph (JPG/PNG)</label>
+              <input type="file" id="photo" accept="image/*"><div class="hint">Resized automatically and saved as &lt;Roll Number&gt;.jpg</div></div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Address &amp; Contact</legend>
+        <div class="grid">
+          <div class="span2"><label class="req">5(a) Postal Address</label><textarea name="postalAddress" data-label="Postal Address"></textarea></div>
+          <div><label class="req">Pin Code</label><input type="text" name="postalPin" maxlength="6" inputmode="numeric" data-digits data-label="Postal Pin Code" data-re="^[0-9]{6}$" data-msg="Pin code must be 6 digits"></div>
+          <div class="span2"><label class="req">5(b) Permanent Address <a href="#" id="same" style="font-size:12px">(same as postal)</a></label><textarea name="permAddress" data-label="Permanent Address"></textarea></div>
+          <div><label class="req">Pin Code</label><input type="text" name="permPin" maxlength="6" inputmode="numeric" data-digits data-label="Permanent Pin Code" data-re="^[0-9]{6}$" data-msg="Pin code must be 6 digits"></div>
+          <div><label class="req">5(c) Phone Number</label><input type="tel" name="phone" maxlength="10" data-digits data-label="Phone Number" data-re="^[0-9]{10}$" data-msg="Phone number must be 10 digits"></div>
+          <div><label class="req">WhatsApp Number</label><input type="tel" name="whatsapp" maxlength="10" data-digits data-label="WhatsApp Number" data-re="^[0-9]{10}$" data-msg="WhatsApp number must be 10 digits"></div>
+          <div><label class="req">5(d) Email Id</label><input type="email" name="email" data-label="Email" data-re="^[^ @]+@[^ @]+\.[^ @]+$" data-msg="Enter a valid email address"></div>
+        </div>
+      </fieldset>
+
+      <fieldset id="expBox">
+        <legend>6. Experience (details of last 04 institutions served)</legend>
+        <div id="expOffNote" class="hint err" hidden>Not applicable: you are working in a DAV school under Bihar Zone, so this section is disabled.</div>
+        <div style="max-width:300px;margin-bottom:10px"><label class="req">Experience (Years) <span class="hint">- N/A disables the table below</span></label>
+          <input type="text" name="expYears" data-allowna data-label="Experience (Years)" data-re="^[0-9]{1,2}(\.[0-9]{1,2})?$" data-msg="Experience must be a number, e.g. 3 or 3.5"></div>
+        <div class="tablewrap"><table class="ft mt" id="expT"></table></div>
+        <div class="hint">Only row 01 is compulsory; rows 02-04 are optional (fill a row completely or leave it empty). Tick N/A in the S/N cell to disable a row.</div>
+      </fieldset>
+
+      <fieldset>
+        <legend>7. Academic &amp; Other Qualification</legend>
+        <div class="tablewrap"><table class="ft mt" id="qT"></table></div>
+        <div class="hint">Post Graduation can be marked N/A. B. Ed. / Other Prof. and Any Other rows are optional.</div>
+        <div class="tethead"><h4>TET &ndash; Teacher Eligibility Test<span>STET: State Teacher Eligibility Test &middot; CTET: Central Teacher Eligibility Test</span></h4><label class="na tna"><input type="checkbox" id="tetNA"> N/A</label></div>
+        <div class="tablewrap"><table class="ft mt" id="tetT"></table></div>
+        <div class="hint">Only row 01 is compulsory; rows 02-03 are optional. Tick N/A beside the TET heading if you do not have a TET certificate.</div>
+      </fieldset>
+
+      <fieldset>
+        <legend>8 - 14. Other Details</legend>
+        <div class="grid">
+          <div><label class="req">8. Minimum Salary Acceptable (₹)</label><input type="text" name="minSalary" data-allowna data-digits maxlength="7" data-label="Minimum Salary" data-re="^[0-9]{1,7}$" data-msg="Salary must be a number"></div>
+          <div class="span2"><label class="req">9. Publication, if any</label><input type="text" name="publication" data-allowna data-label="Publication"></div>
+          <div class="full"><label class="req">10. Proficiency in Games &amp; Sports (indicate level - School/College/University/District/State/National) <span class="hint">- row 1 required, rows 2-3 optional</span></label>
+            <label class="na tna"><input type="checkbox" id="gamesNA"> N/A (whole table)</label>
+            <div class="tablewrap"><table class="ft mt" id="gameT" style="min-width:700px"></table></div></div>
+          <div class="full"><label class="req">11. Proficiency in Co-Curricular Activities (indicate level)</label><input type="text" name="coCurricular" data-allowna data-label="Co-Curricular Activities"></div>
+          <div class="full"><label class="req">12. Place / Bihar Zone of Preference, if selected (must be different) <span class="hint">- N/A in Preference 02 disables Preference 03</span></label></div>
+          <div><label>Preference 01</label><select name="pref1" data-label="Preference 01"></select></div>
+          <div><label>Preference 02</label><select name="pref2" data-label="Preference 02" data-allowna></select></div>
+          <div><label>Preference 03</label><select name="pref3" data-label="Preference 03"></select></div>
+          <div><label>Any Where in Bihar</label><div class="inline"><label><input type="radio" name="anywhereBihar" value="Yes" data-label="Any Where in Bihar"> Yes</label><label><input type="radio" name="anywhereBihar" value="No"> No</label></div></div>
+          <div class="full"><label class="req">13. Time period required for joining (if selected)</label><input type="text" name="joiningTime" data-allowna data-label="Joining time"></div>
+          <div class="full"><label class="req">14. Reference (Name, Profession and Address of two references who can identify you)</label>
+            <div class="tablewrap"><table class="ft mt" id="refT" style="min-width:760px"></table></div></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>15. Declaration</legend>
+        <p style="margin-top:0">I solemnly declare that the statements given by me is correct to the best of my knowledge. If at any stage any discrepancy is found in my document my selection will stand cancelled. If selected, I shall abide by the service terms &amp; conditions of DAV College Managing Committee, New Delhi, and my services are transferable to any of the DAV Public Schools running under DAV CMC, New Delhi.</p>
+        <p lang="hi" class="hi">मैं सत्यनिष्ठा से घोषणा करता/करती हूँ कि मेरे द्वारा दिए गए कथन मेरी जानकारी में सही हैं। <b>यदि किसी भी स्तर पर मेरे दस्तावेज़ों में कोई विसंगति पाई जाती है, तो मेरा चयन रद्द माना जाएगा।</b> चयनित होने पर मैं डी.ए.वी. कॉलेज प्रबंधकारिणी समिति, नई दिल्ली की सेवा शर्तों एवं नियमों का पालन करूँगा/करूँगी तथा मेरी सेवाएँ डी.ए.वी. सी.एम.सी., नई दिल्ली के अंतर्गत संचालित किसी भी डी.ए.वी. पब्लिक स्कूल में स्थानांतरणीय होंगी।</p>
+        <label style="color:var(--ink);font-size:15px"><input type="checkbox" name="declaration" id="decl"> I agree to the above declaration / <span lang="hi">मैं उपरोक्त घोषणा से सहमत हूँ</span></label>
+        <div class="grid" style="margin-top:10px">
+          <div><label class="req">Date</label><input type="date" name="declDate" data-label="Declaration Date"></div>
+          <div><label class="req">Place</label><input type="text" name="declPlace" data-label="Declaration Place"></div>
+          <div><label class="req">Name</label><input type="text" name="declName" id="declName" data-label="Declaration Name"></div>
+        </div>
+      </fieldset>
+
+      <div class="submitbar"><div id="msg"></div><button type="submit" class="btn" id="submitBtn">Submit application</button></div>
+    </form>
+
+<div class="done" id="done" hidden>
+        <div class="tick"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h2 id="doneTitle">Application submitted</h2>
+        <div>CBT Roll Number: <b id="doneRoll"></b></div>
+        <div>Form Number: <b id="doneForm"></b></div>
+        <div id="doneEdits" class="hint"></div>
+        <div style="margin-top:8px">Your Application ID</div>
+        <div class="id" id="appId"></div>
+        <div id="doneMsg" class="hint err" style="margin-bottom:6px"></div>
+        <button class="btn" id="viewPrint">Print application</button>
+        <button class="btn alt" id="newApp">Add New Application</button>
+      </div>
+    </main>
+  </section>
+</div>
+
+<!-- ============ MODALS ============ -->
+<div class="modal" id="venueModal" hidden>
+  <div class="mbox">
+    <button class="btn alt mclose" type="button" id="venueClose" style="padding:6px 14px">Close</button>
+    <h3 id="venueTitle">Schools</h3>
+    <div id="venueBody"></div>
+  </div>
+</div>
+<div class="modal wide" id="pdfModal" hidden>
+  <div class="mbox">
+    <button class="btn alt mclose" type="button" id="pdfClose" style="padding:6px 14px">Close</button>
+    <h3>PCE Qualifying Certificate - preview</h3>
+    <div id="pdfModalBody" style="text-align:center"></div>
+  </div>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="adminApp" style="display:none">
+  <header class="top">
+    <img src="https://davrecruit.davcmc.in/assets/img/logo.png" alt="DAV logo" onerror="this.style.display='none'">
+    <div><h1>Admin Panel</h1><p>D.A.V. Public Schools, Bihar Zone - Applications</p></div>
+  </header>
+  <main style="max-width:1300px">
+    <div style="margin-bottom:10px"><button class="btn alt" type="button" id="admBack" style="padding:6px 14px">&larr; Back to application form</button></div>
+
+    <div class="card" id="admLogin" style="max-width:420px">
+      <h3 style="margin:0 0 8px;color:var(--brand)">Admin login</h3>
+      <label>Admin ID</label><input type="text" id="admId" autocomplete="username">
+      <label style="margin-top:8px">Password</label><input type="password" id="admPw" autocomplete="current-password">
+      <div id="admMsg" class="hint err" style="margin:8px 0"></div>
+      <button class="btn" type="button" id="admLoginBtn">Login</button>
+    </div>
+
+    <div id="admMain" hidden>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div>Logged in as <b id="admName"></b> &middot; Venue(s): <span id="admPlaces"></span></div>
+        <div><button class="btn alt" type="button" id="admScan" style="min-height:40px;padding:6px 14px">Scan Results</button> <button class="btn alt" type="button" id="admRefresh" style="min-height:40px;padding:6px 14px">Refresh</button> <button class="btn alt" type="button" id="admLogout" style="padding:6px 14px">Logout</button></div>
+      </div>
+
+      <h3 style="color:var(--brand)">Dashboard <span class="hint">(all applications you are allowed to see)</span></h3>
+      <div class="dash" id="kpis"></div>
+      <div class="grid" style="margin-bottom:14px">
+        <div class="card span2" style="margin:0"><h4 style="margin:0 0 6px">Post &amp; Subject wise count</h4><div class="tablewrap" id="psBox"></div></div>
+        <div class="card" style="margin:0" id="placeCard"><h4 style="margin:0 0 6px">Venue wise count</h4><div class="tablewrap" id="placeBox"></div></div>
+      </div>
+
+      <h3 style="color:var(--brand)">Applications</h3>
+      <div class="card filters">
+        <div><label>Venue</label><select id="fPlace"></select></div>
+        <div><label>Post</label><select id="fPost"></select></div>
+        <div><label>Subject</label><select id="fSubject"></select></div>
+        <div><label>Gender</label><select id="fGender"><option value="">All</option><option>Male</option><option>Female</option><option>Transgender</option></select></div>
+        <div><label>Working in DAV</label><select id="fDav"><option value="">All</option><option>Yes</option><option>No</option></select></div>
+        <div><label>Search (roll / form no. / name / phone)</label><input type="text" id="fText"></div>
+      </div>
+      <div class="card actionbar">
+        <span id="admTargetTxt" class="hint" style="flex:1 1 220px"></span>
+        <button class="btn" type="button" id="bXlsx">Export data (Excel)</button>
+        <button class="btn" type="button" id="bZip">Export Excel + Photos + PCE Certificates (ZIP)</button>
+        <button class="btn" type="button" id="bPdf">PDF forms (selected / filtered)</button>
+      </div>
+      <div id="admProg" class="hint" style="margin:0 0 8px"></div>
+      <div class="tablewrap"><table class="at" id="admT"></table></div>
+      <div class="pager"><button class="btn alt" type="button" id="pPrev" style="padding:5px 12px">Prev</button><span id="pInfo"></span><button class="btn alt" type="button" id="pNext" style="padding:5px 12px">Next</button></div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ QR SCAN PAGE (PIN) ============ -->
+<div id="scanApp" style="display:none">
+  <header class="top">
+    <img src="https://davrecruit.davcmc.in/assets/img/logo.png" alt="DAV logo" onerror="this.style.display='none'">
+    <div><h1>Candidate Scan</h1><p>Level / Location &amp; Remark</p></div>
+  </header>
+  <main>
+    <div class="card pinbox" id="scLogin" hidden>
+      <div class="lock"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
+      <h3 style="color:var(--brand)">Enter Scan PIN</h3>
+      <p class="hint">Ask the Administrator for the PIN.</p>
+      <input type="password" id="scPin" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="&bull;&bull;&bull;&bull;">
+      <div id="scLoginMsg" class="hint err" style="margin:8px 0"></div>
+      <button class="btn block" type="button" id="scLoginBtn">Unlock</button>
+    </div>
+    <div id="scMain" hidden>
+      <div class="card">
+        <div class="sc-name" id="scName"></div>
+        <div class="sc-grid" id="scInfo"></div>
+      </div>
+      <div class="card">
+        <label class="req">Level / Location</label><select id="scLevel"></select>
+        <label class="req" style="margin-top:12px">Remark</label><select id="scRemark"></select>
+        <div id="scNote" class="sc-note"></div>
+        <div id="scMsg" class="sc-ok"></div>
+        <button class="btn block" type="button" id="scSave">Save</button>
+      </div>
+      <div class="card"><h4 style="margin:0 0 6px">Scan history</h4><div class="tablewrap"><table class="at" id="scHist" style="min-width:0"></table></div></div>
+      <button class="btn alt" type="button" id="scLogout" style="min-height:40px;padding:6px 16px">Lock</button>
+    </div>
+    <div style="margin-top:14px"><button class="btn alt block" type="button" id="scResults">View scan results (Admin login)</button></div>
+  </main>
+</div>
+
+<!-- ============ SCAN RESULTS (view only, Admins login) ============ -->
+<div id="srApp" style="display:none">
+  <header class="top">
+    <img src="https://davrecruit.davcmc.in/assets/img/logo.png" alt="DAV logo" onerror="this.style.display='none'">
+    <div><h1>Scan Results</h1><p>View only</p></div>
+  </header>
+  <main style="max-width:1200px">
+    <div style="margin-bottom:12px"><button class="btn alt" type="button" id="srBack" style="min-height:42px;padding:6px 16px">&larr; Back</button></div>
+    <div class="card" id="srLogin" style="max-width:440px">
+      <h3 style="margin:0 0 8px;color:var(--brand)">Login to view scan results</h3>
+      <label>Admin ID</label><input type="text" id="srId" autocomplete="username">
+      <label style="margin-top:10px">Password</label><input type="password" id="srPw" autocomplete="current-password">
+      <div id="srMsg" class="hint err" style="margin:8px 0"></div>
+      <button class="btn block" type="button" id="srLoginBtn">Login</button>
+    </div>
+    <div id="srMain" hidden>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div>Logged in as <b id="srName"></b> &middot; Venue(s): <span id="srPlaces"></span></div>
+        <div><button class="btn alt" type="button" id="srRefresh" style="min-height:38px;padding:5px 14px">Refresh</button> <button class="btn alt" type="button" id="srLogout" style="min-height:38px;padding:5px 14px">Logout</button></div>
+      </div>
+      <div class="lvl" id="srLvl"></div>
+      <div class="card filters">
+        <div><label>Level / Location</label><select id="srLevelF"></select></div>
+        <div><label>Remark</label><select id="srRemarkF"></select></div>
+        <div><label>Post</label><select id="srPostF"></select></div>
+        <div><label>Subject</label><select id="srSubjF"></select></div>
+        <div><label>Search (roll / name / mobile)</label><input type="text" id="srText"></div>
+      </div>
+      <div class="hint" id="srCount" style="margin:0 0 8px"></div>
+      <div class="tablewrap"><table class="at" id="srT"></table></div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ PRINT VIEW ============ -->
+<div id="toolbar" hidden>
+  <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+  <button class="btn alt" id="backBtn">Back</button>
+  <button class="btn alt" id="newBtn">Add New</button>
+</div>
+<div id="print"></div>
+
+<script>
+const CFG  = <?!= cfg ?>;
+const BOOT = <?!= boot ?>;
+const APP_URL = <?!= appUrl ?>;
+const MODE = <?!= mode ?>;
+const SCAN_ID = <?!= scanId ?>;
+const LOGO = 'https://davrecruit.davcmc.in/assets/img/logo.png';
+const $  = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+const F  = () => $('#f');
+const NA = {};                       // per-field N/A checkboxes (only fields marked data-allowna)
+const state = { data:null, photo:'', id:'' };
+let editMode = null;                 // { roll, dob, left } while editing a submitted application
+let photoB64 = '', photoChanged = false, certExisting = false;
+
+const STATES = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal',
+  'Andaman & Nicobar Islands','Chandigarh','Dadra & Nagar Haveli and Daman & Diu','Delhi','Jammu & Kashmir','Ladakh','Lakshadweep','Puducherry'];
+const CBSE_SUBJ = ['Hindi','English','Sanskrit','Urdu','Mathematics','Science','Social Science / Social Studies','Environmental Studies (EVS)','Physics','Chemistry','Biology','Computer Science / Informatics Practices','Economics','History','Geography','Political Science','Accountancy','Business Studies','Home Science','Physical Education','Music','Art / Drawing','Other'];
+const TET_PAPER = ['Paper-1','Paper-2','Primary','Upper Primary','Other'];
+const VALID_CLASS = ['I to V','VI to VIII','I to VIII','Other'];
+const MEDIUM = ['English','Hindi','Other'];
+const DIVISION = ['1st','2nd','3rd','Other'];
+const QL = ['Matriculation / X','Intermediate','Graduation','Post Graduation','B. Ed. / Other Prof.','Any Other'];
+
+const pad = n => ('0'+n).slice(-2);
+const opts = (arr, ph) => (ph!==null ? `<option value="">${ph}</option>` : '') + arr.map(a=>`<option value="${esc(a)}">${esc(a)}</option>`).join('');
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/\n/g,'<br>'); }
+function fmtDate(v){ if(!/^\d{4}-\d{2}-\d{2}$/.test(v)) return v; const p=v.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+function dmyToIso(v){ const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v||''); return m ? m[3]+'-'+m[2]+'-'+m[1] : ''; }
+function dmy(iso, sep){ const p=iso.split('-'); return p[2]+sep+p[1]+sep+p[0]; }
+function radioVal(n){ const c=$('#f [name="'+n+'"]:checked'); return c?c.value:''; }
+const I = (n,l,x) => `<input type="text" name="${n}" data-label="${l}" ${x||''}>`;
+const S = (n,l,h) => `<select name="${n}" data-label="${l}">${h}</select>`;
+const YEAR_X = 'data-digits maxlength="4" data-year data-re="^[0-9]{4}$" data-msg="Year must be a valid 4-digit year"';
+
+/* ---------- tables ---------- */
+function buildTables(){
+  let h = '<tr><th style="width:80px">S/N</th><th style="width:22%">Name and address of the institution</th><th>Post</th><th>From</th><th>To</th><th>Class</th><th>Subject</th><th>Monthly Salary Drawn</th></tr>';
+  for (let i=1;i<=4;i++){
+    const to = `<input type="date" name="exp${i}_to" data-label="Experience ${i} - To">` + (i===1 ? `<label style="margin-top:4px;color:var(--ink)"><input type="checkbox" id="tillDate"> Till date</label>` : '');
+    h += `<tr data-rowna ${i>1?'data-optrow':''}><td>0${i}</td><td><textarea name="exp${i}_institution" data-label="Experience ${i} - Institution"></textarea></td>
+      <td>${I('exp'+i+'_post','Experience '+i+' - Post')}</td><td><input type="date" name="exp${i}_from" data-label="Experience ${i} - From"></td><td>${to}</td>
+      <td>${I('exp'+i+'_class','Experience '+i+' - Class')}</td><td>${I('exp'+i+'_subject','Experience '+i+' - Subject')}</td>
+      <td>${I('exp'+i+'_salary','Experience '+i+' - Salary','data-digits maxlength="7" data-re="^[0-9]{1,7}$" data-msg="Salary must be a number"')}</td></tr>`;
+  }
+  $('#expT').innerHTML = h;
+
+  h = '<tr><th style="width:80px">S/N</th><th>Examination / Course Name</th><th>Certificate Number</th><th>Division</th><th>%age / CGPA</th><th>Year</th><th>Medium</th><th>University / Board</th><th>Subjects Studied (max 6, comma separated)</th><th>Is distance?</th></tr>';
+  QL.forEach((q,idx)=>{ const i=idx+1, L='Qualification '+i;
+    const attr = i===4 ? 'data-rowna' : (i>=5 ? 'data-optrow' : '');
+    const course = i===1 ? `${q}<input type="hidden" name="q1_course" value="Matriculation / X">`
+                         : `${q}${i>=5?'<div class="hint">(optional)</div>':''}${I('q'+i+'_course',L+' - Course name','placeholder="Course name"')}`;
+    h += `<tr ${attr}><td>0${i}</td><td>${course}</td><td>${I('q'+i+'_certNo',L+' - Certificate Number','maxlength="30"')}</td>
+      <td>${S('q'+i+'_division',L+' - Division',opts(DIVISION,'--'))}</td>
+      <td>${I('q'+i+'_percent',L+' - %age / CGPA','data-re="^(100|[0-9]{1,2}(\\.[0-9]{1,2})?)$" data-msg="%age / CGPA must be a number up to 100" maxlength="5"')}</td>
+      <td>${I('q'+i+'_year',L+' - Year',YEAR_X)}</td><td>${S('q'+i+'_medium',L+' - Medium',opts(MEDIUM,'--'))}</td>
+      <td>${I('q'+i+'_university',L+' - University / Board')}</td><td>${I('q'+i+'_subjects',L+' - Subjects','data-subjects placeholder="Eng, Hindi, Maths"')}</td>
+      <td>${S('q'+i+'_distance',L+' - Is distance',opts(['No','Yes'],null))}</td></tr>`; });
+  $('#qT').innerHTML = h;
+
+  h = '<tr><th style="width:80px">S/N</th><th>TET Type</th><th>State / Organized by</th><th>TET Paper</th><th>Valid for class</th><th>Year</th><th>Subject</th><th>Marks Obt. (out of 150)</th><th>%age</th></tr>';
+  for (let i=1;i<=3;i++){ const L='TET '+i;
+    h += `<tr ${i>1?'data-optrow':''}><td>0${i}</td><td>${S('tet'+i+'_type',L+' - Type','<option value="">--</option><option value="STET">STET - State Teacher Eligibility Test</option><option value="CTET">CTET - Central Teacher Eligibility Test</option>')}</td>
+      <td>${S('tet'+i+'_org',L+' - State / Organized by','<option value="">Select type first</option>')}</td>
+      <td>${S('tet'+i+'_paper',L+' - Paper',opts(TET_PAPER,'--'))}</td><td>${S('tet'+i+'_validClass',L+' - Valid for class',opts(VALID_CLASS,'--'))}</td>
+      <td>${I('tet'+i+'_year',L+' - Year',YEAR_X)}</td><td>${S('tet'+i+'_subject',L+' - Subject',opts(CBSE_SUBJ,'--'))}</td>
+      <td>${I('tet'+i+'_marks',L+' - Marks','data-digits maxlength="3" inputmode="numeric" data-re="^(150|1[0-4][0-9]|[1-9]?[0-9])$" data-msg="Marks must be a number from 0 to 150"')}</td>
+      <td>${I('tet'+i+'_percent',L+' - %age','readonly')}</td></tr>`; }
+  $('#tetT').innerHTML = h;
+
+  h = '<tr><th>Game Played</th><th>Level</th><th>Details / Remark</th></tr>';
+  for (let i=1;i<=3;i++) h += `<tr ${i>1?'data-optrow':''}><td>${I('game'+i+'_game','Game '+i)}</td><td>${I('game'+i+'_level','Game '+i+' - Level')}</td><td>${I('game'+i+'_remark','Game '+i+' - Remark')}</td></tr>`;
+  $('#gameT').innerHTML = h;
+
+  h = '<tr><th style="width:90px">Reference</th><th>Name</th><th>Profession</th><th>Address</th></tr>';
+  for (let i=1;i<=2;i++) h += `<tr><td>${i}</td><td>${I('ref'+i+'Name','Reference '+i+' - Name')}</td><td>${I('ref'+i+'Prof','Reference '+i+' - Profession')}</td>
+    <td><textarea name="ref${i}Addr" data-label="Reference ${i} - Address"></textarea></td></tr>`;
+  $('#refT').innerHTML = h;
+}
+
+/* ---------- N/A handling ----------
+   per-field : expYears, minSalary, publication, coCurricular, joiningTime   (data-allowna)
+   per-row   : Experience rows, Post Graduation row, TET rows                  (tr[data-rowna], checkbox in S/N cell)
+   per-table : Games & Sports (#gamesNA) and TET (#tetNA, in the TET heading)
+   expYears = N/A also disables the whole Experience table                                         */
+function worksDAV(){ return radioVal('workingDAV')==='Yes'; }
+function isNA(el){
+  const n=el.name;
+  if(el.type==='hidden') return false;
+  if(NA[n] && NA[n].checked) return true;
+  const tr=el.closest('tr[data-rowna]'); if(tr && tr._cb && tr._cb.checked) return true;
+  const tb=el.closest('table[data-tablena]'); if(tb && tb._cb && tb._cb.checked) return true;
+  if(n==='pref3' && NA.pref2 && NA.pref2.checked) return true;
+  if(/^(exp[1-4]_|expYears$)/.test(n) && worksDAV()) return true;
+  if(/^exp[1-4]_/.test(n) && NA.expYears && NA.expYears.checked) return true;
+  return false;
+}
+function applyEl(el){ if(el.type!=='hidden') el.disabled = !!(el.dataset.off!==undefined || isNA(el) || el.dataset.lock==='1'); }
+function refreshAll(){
+  $$('#f [name]').forEach(applyEl);
+  $$('#f tr[data-rowna]').forEach(tr=>tr.classList.toggle('isna', !!(tr._cb && tr._cb.checked)));
+  const works=worksDAV(), off=works || !!(NA.expYears && NA.expYears.checked);
+  $$('#expT tr[data-rowna]').forEach(tr=>{ if(tr._cb) tr._cb.disabled=off; });
+  if(NA.expYears) NA.expYears.disabled=works;
+  $('#tillDate').disabled = off || $('#expT tr[data-rowna]')._cb.checked;
+  $('#expBox').classList.toggle('off', works); $('#expOffNote').hidden=!works;
+}
+function onNA(){ refreshAll(); updAllPct(); updateDeps(); }
+function lock(n,on){ $$('#f [name="'+n+'"]').forEach(el=>{ el.dataset.lock=on?'1':'0'; }); refreshAll(); }
+function decorate(){
+  $$('#f [data-allowna]').forEach(el=>{
+    const cb=document.createElement('input'); cb.type='checkbox';
+    const lab=document.createElement('label'); lab.className='na'; lab.title='Not applicable'; lab.appendChild(cb); lab.appendChild(document.createTextNode('N/A'));
+    const w=document.createElement('div'); w.className='fw'; el.parentNode.insertBefore(w, el); w.appendChild(lab); w.appendChild(el);
+    NA[el.name]=cb; cb.addEventListener('change', onNA);
+  });
+  $$('#f tr[data-rowna]').forEach(tr=>{
+    const td=tr.querySelector('td'), lab=document.createElement('label'), cb=document.createElement('input');
+    lab.className='na rowna'; cb.type='checkbox'; lab.appendChild(cb); lab.appendChild(document.createTextNode('N/A')); td.appendChild(lab);
+    tr._cb=cb; cb.addEventListener('change', onNA);
+  });
+  const gt=$('#gameT'); gt.setAttribute('data-tablena',''); gt._cb=$('#gamesNA'); gt._cb.addEventListener('change', onNA);
+  const tt=$('#tetT'); tt.setAttribute('data-tablena',''); tt._cb=$('#tetNA'); tt._cb.addEventListener('change', onNA);   /* one N/A for the whole TET table */
+}
+
+/* ---------- dropdowns from sheet ---------- */
+function fillLists(){
+  $('#place').innerHTML = opts(CFG.places,'-- Select --'); if(CFG.places.length===1){ $('#place').value=CFG.places[0]; $('#venueLink').hidden=false; }
+  $('#post').innerHTML = opts(CFG.posts,'-- Select Post --'); fillSubjects();
+  $('#category').innerHTML = opts(CFG.categories,'-- Select --');
+  ['pref1','pref2','pref3'].forEach(n=>{ $('#f [name="'+n+'"]').innerHTML = opts(CFG.prefs,'-- Select --'); });
+  $('#pfx').textContent = CFG.prefix; $('#cbtYearTxt').textContent = CFG.year;
+  $('#ageLbl').textContent = 'Age (as on '+dmy(CFG.ageCutoff,'-')+')';
+  const c=CFG.ageCutoff.split('-').map(Number);
+  $('#dob').max = (c[0]-CFG.minAge)+'-'+pad(c[1])+'-'+pad(c[2]);
+}
+function fillSubjects(){ const p=$('#post').value; $('#subject').innerHTML = opts(CFG.subjects[p]||[], p?'-- Select Subject --':'-- Select Post first --'); }
+
+function calcAge(){
+  const v=$('#dob').value, msg=$('#dobMsg'); msg.textContent=''; msg.className='hint';
+  if(!v){ ['ageY','ageM','ageD'].forEach(id=>$('#'+id).value=''); return; }
+  const b=v.split('-').map(Number), c=CFG.ageCutoff.split('-').map(Number);
+  let y=c[0]-b[0], m=c[1]-b[1], d=c[2]-b[2];
+  if(d<0){ m--; d+=new Date(c[0],c[1]-1,0).getDate(); }
+  if(m<0){ y--; m+=12; }
+  $('#ageY').value=y; $('#ageM').value=m; $('#ageD').value=d;
+  if(y<CFG.minAge){ msg.textContent='Age must be at least '+CFG.minAge+' years as on '+dmy(CFG.ageCutoff,'-'); msg.className='hint err'; }
+}
+
+/* ---------- dependent logic ---------- */
+function findSchool(code){ const k=String(code||'').toUpperCase().replace(/[^A-Z0-9]/g,''); return k ? CFG.schools.find(s=>s.code.toUpperCase().replace(/[^A-Z0-9]/g,'')===k) : null; }
+function updateDeps(){
+  $('#spouseWrap').hidden = radioVal('maritalStatus')!=='Married';
+  const works = worksDAV();
+  $('#schoolWrap').hidden = !works;
+  if(works){
+    const code=$('#schoolCode').value, sc=findSchool(code);
+    $('#schoolName').value = sc ? sc.name : '';
+    $('#schoolMsg').textContent = (code && !sc) ? 'School code not found in the school list' : '';
+  } else { $('#schoolName').value=''; $('#schoolMsg').textContent=''; }
+  refreshAll();
+}
+/* popup: schools listed in the sheet for the selected venue */
+function showVenue(){
+  const p=$('#place').value, link=$('#venueLink'); link.hidden=!p; if(!p) return;
+  const list=CFG.schools.filter(x=>x.venue===p);
+  $('#venueTitle').textContent='Schools under venue: '+p;
+  $('#venueBody').innerHTML = list.length
+    ? '<table class="ft" style="min-width:0"><tr><th style="width:110px">School Code</th><th>School Name</th></tr>'+list.map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.name)}</td></tr>`).join('')+'</table>'
+    : '<div class="hint">No schools are listed for this venue yet.</div>';
+  $('#venueModal').hidden=false;
+}
+function tetOrg(i){
+  const t=$('#f [name="tet'+i+'_type"]').value, o=$('#f [name="tet'+i+'_org"]');
+  if(t==='STET') o.innerHTML=opts(STATES,'-- Select State --');
+  else if(t==='CTET') o.innerHTML='<option value="CBSE, New Delhi">CBSE, New Delhi</option>';
+  else o.innerHTML='<option value="">Select type first</option>';
+}
+function updPct(i){
+  const m=$('#f [name="tet'+i+'_marks"]'), p=$('#f [name="tet'+i+'_percent"]');
+  if(isNA(m)){ p.value='N/A'; return; }
+  p.value = (/^[0-9]{1,3}$/.test(m.value) && +m.value<=150) ? (m.value/150*100).toFixed(2) : '';
+}
+function updAllPct(){ for(let i=1;i<=3;i++) updPct(i); }
+function refreshPrefs(){
+  const names=['pref1','pref2','pref3'];
+  names.forEach(n=>{
+    const el=$('#f [name="'+n+'"]');
+    const others=names.filter(x=>x!==n).filter(x=>!isNA($('#f [name="'+x+'"]'))).map(x=>$('#f [name="'+x+'"]').value).filter(Boolean);
+    Array.from(el.options).forEach(op=>{ op.disabled = !!op.value && others.indexOf(op.value)>=0; });
+  });
+}
+
+/* ---------- photo (resized to ~35x45 mm) ---------- */
+function wirePhoto(){
+  $('#photo').addEventListener('change', function(){
+    const file=this.files[0]; if(!file) return;
+    if(!/^image\//.test(file.type)){ $('#msg').textContent='Photograph must be an image file.'; return; }
+    const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const W=413,H=531, c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+      x.fillStyle='#fff'; x.fillRect(0,0,W,H);
+      const r=Math.max(W/img.width,H/img.height), w=img.width*r, h=img.height*r;
+      x.drawImage(img,(W-w)/2,(H-h)/2,w,h);
+      photoB64=c.toDataURL('image/jpeg',0.85); photoChanged=true; $('#photoPrev').src=photoB64; URL.revokeObjectURL(url);
+    };
+    img.src=url;
+  });
+}
+function readB64(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(String(r.result).split(',')[1]); r.onerror=()=>rej(new Error('Could not read file')); r.readAsDataURL(file); }); }
+function b64ToU8(b64){ const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u; }
+
+/* ---------- PCE certificate preview (pdf.js) ---------- */
+let certU8=null;
+async function renderPdf(u8, box, maxW, pages){
+  const main=!box; box=box||$('#certPrev'); maxW=maxW||1000; pages=pages||8;
+  if(main){ certU8=u8; $('#pdfBig').hidden=false; }
+  box.innerHTML=''; box.hidden=false;
+  if(!window.pdfjsLib){ box.innerHTML='<div class="hint">Preview is not available (PDF viewer could not load). The file will still be uploaded.</div>'; return; }
+  try{
+    pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdf=await pdfjsLib.getDocument({data:u8.slice()}).promise, n=Math.min(pdf.numPages,pages);
+    for(let i=1;i<=n;i++){
+      const page=await pdf.getPage(i), v0=page.getViewport({scale:1}), vp=page.getViewport({scale:Math.min(2.2, maxW/v0.width)});
+      const c=document.createElement('canvas'); c.width=vp.width; c.height=vp.height; box.appendChild(c);
+      await page.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
+    }
+    const note=document.createElement('div'); note.className='hint';
+    note.textContent = pdf.numPages+' page(s)' + (pdf.numPages>n ? ' - first '+n+' shown' : ''); box.appendChild(note);
+  }catch(e){ box.innerHTML='<div class="hint err">Could not preview this PDF. Please check the file is a valid, non-password-protected PDF.</div>'; }
+}
+function wireCert(){
+  $('#cert').addEventListener('change', async function(){
+    const f=this.files[0], note=$('#certNote'); note.textContent=''; note.className='hint';
+    if(!f){ if(!certExisting){ $('#certPrev').hidden=true; $('#pdfBig').hidden=true; } return; }
+    if(f.type!=='application/pdf'){ note.textContent='Certificate must be a PDF file.'; note.className='hint err'; this.value=''; return; }
+    if(f.size>5*1024*1024){ note.textContent='Certificate must be under 5 MB.'; note.className='hint err'; this.value=''; return; }
+    note.textContent=f.name+' ('+Math.round(f.size/1024)+' KB)';
+    renderPdf(new Uint8Array(await f.arrayBuffer()));
+  });
+}
+
+/* ---------- roll number: unique ---------- */
+let rollTaken=false, rollChecked='';
+function wireRoll(){
+  $('#roll').addEventListener('blur', function(){
+    if(editMode) return;
+    const v=this.value.trim(), m=$('#rollMsg'); rollTaken=false; rollChecked=''; m.textContent=''; m.className='hint';
+    if(!/^[0-9]{1,10}$/.test(v)) return;
+    m.textContent='Checking...';
+    google.script.run.withSuccessHandler(r=>{ rollChecked=v; rollTaken=!!r.exists;
+        m.textContent = r.exists ? 'This CBT Roll Number is already registered.' : 'Roll number available.'; m.className = r.exists ? 'hint err' : 'hint'; })
+      .withFailureHandler(()=>{ m.textContent=''; }).checkRoll(v);
+  });
+}
+
+/* ---------- collect + validate ---------- */
+function rowEmpty(tr){
+  return Array.from(tr.querySelectorAll('[name]')).filter(e=>e.type!=='hidden' && !/_distance$/.test(e.name)).every(e=>!String(e.value).trim());
+}
+function collect(){
+  const out={}, names=[...new Set($$('#f [name]').map(e=>e.name))];
+  names.forEach(n=>{
+    const els=$$('#f [name="'+n+'"]'), el=els[0];
+    if(isNA(el)){ out[n]='N/A'; return; }
+    if(el.type==='radio'){ const c=els.find(x=>x.checked); out[n]=c?c.value:''; }
+    else if(el.type==='checkbox'){ out[n]=el.checked?'Agreed':''; }
+    else if(el.type==='date'){ out[n]=fmtDate(el.value); }
+    else out[n]=el.value.trim();
+  });
+  $$('#f tr[data-optrow]').forEach(tr=>{ const f0=tr.querySelector('[name]:not([type=hidden])'); if(rowEmpty(tr) && !isNA(f0)) tr.querySelectorAll('[name]').forEach(e=>{ if(e.type!=='hidden') out[e.name]=''; }); });
+  if($('#spouseWrap').hidden) out.spouseName='';
+  if($('#schoolWrap').hidden){ out.davSchoolCode=''; out.davSchoolName=''; }
+  if($('#tillDate').checked && out.exp1_to!=='N/A') out.exp1_to='Till date';
+  out.name=($('#title').value+' '+out.name).trim();
+  out.interviewDate=''; out.cbtPrefix=CFG.prefix; out.cbtYear=CFG.year; out.ageAsOn=dmy(CFG.ageCutoff,'-');
+  return out;
+}
+
+function validate(){
+  $$('.bad').forEach(e=>e.classList.remove('bad'));
+  const bad=(el,msg)=>{ el.classList.add('bad'); try{ el.scrollIntoView({block:'center'}); el.focus(); }catch(e){} return msg; };
+  const lbl=el=>el.dataset.label||el.name;
+  const names=[...new Set($$('#f [name]').map(e=>e.name))];
+  for(const n of names){
+    const els=$$('#f [name="'+n+'"]'), el=els[0];
+    if(el.type==='hidden' || el.dataset.novalidate!==undefined) continue;
+    if(isNA(el) || el.closest('[hidden]')) continue;
+    if(n==='exp1_to' && $('#tillDate').checked) continue;
+    const opt=el.closest('tr[data-optrow]'); if(opt && rowEmpty(opt)) continue;
+    if(el.type==='radio'){ if(!els.some(x=>x.checked)) return bad(el.closest('.inline'),'Please select: '+lbl(el)); continue; }
+    if(el.type==='checkbox'){ if(!el.checked) return bad(el,'Please accept the declaration.'); continue; }
+    const v=el.value.trim();
+    if(!v) return bad(el,'Required: '+lbl(el));
+    if(el.dataset.re && !new RegExp(el.dataset.re).test(v)) return bad(el, lbl(el)+': '+(el.dataset.msg||'invalid value'));
+    if(el.dataset.year!==undefined && (+v<1950 || +v>new Date().getFullYear())) return bad(el, lbl(el)+': enter a valid year (1950 - '+new Date().getFullYear()+')');
+    if(el.dataset.subjects!==undefined){ const parts=v.split(',').map(s=>s.trim()); if(parts.some(s=>!s) || parts.length>6) return bad(el, lbl(el)+': enter 1 to 6 subjects separated by commas'); }
+  }
+  if(+$('#ageY').value < CFG.minAge) return bad($('#dob'),'Minimum age is '+CFG.minAge+' years as on '+dmy(CFG.ageCutoff,'-'));
+  if(!$('#schoolWrap').hidden && !findSchool($('#schoolCode').value)) return bad($('#schoolCode'),'School code not found in the school list');
+  for(let i=1;i<=4;i++){
+    const f=$('#f [name="exp'+i+'_from"]'), t=$('#f [name="exp'+i+'_to"]');
+    if(f.value && t.value && !t.disabled && f.value>t.value) return bad(t,'Experience '+i+': "To" date must be after "From" date');
+  }
+  const pv=['pref1','pref2','pref3'].filter(n=>!isNA($('#f [name="'+n+'"]'))).map(n=>$('#f [name="'+n+'"]').value);
+  if(new Set(pv).size!==pv.length) return bad($('#f [name="pref1"]'),'Preference 01, 02 and 03 must all be different');
+  if(!editMode && rollTaken && rollChecked===$('#roll').value.trim()) return bad($('#roll'),'This CBT Roll Number is already registered.');
+  return null;
+}
+
+/* ---------- edit a submitted application ---------- */
+function populate(d){
+  const g=n=>$('#f [name="'+n+'"]');
+  const setSel=(el,v)=>{ if(el && Array.from(el.options).some(o=>o.value===v)) el.value=v; };
+  setSel(g('place'),d.place); setSel(g('post'),d.post); fillSubjects(); setSel(g('subject'),d.subject); setSel(g('category'),d.category);
+  for(let i=1;i<=3;i++){ setSel(g('tet'+i+'_type'),d['tet'+i+'_type']); tetOrg(i); }
+  const nm=/^(Mr\.|Mrs\.|Miss)\s+(.*)$/.exec(d.name||''); d=Object.assign({},d);
+  if(nm){ $('#title').value=nm[1]; d.name=nm[2]; }
+
+  Object.keys(NA).forEach(n=>{ NA[n].checked = d[n]==='N/A' && !(n==='expYears' && d.workingDAV==='Yes'); });
+  $$('#f tr[data-rowna]').forEach(tr=>{
+    const nms=[...new Set(Array.from(tr.querySelectorAll('[name]')).filter(e=>e.type!=='hidden').map(e=>e.name))];
+    tr._cb.checked = !(tr.closest('#expT') && (d.expYears==='N/A' || d.workingDAV==='Yes')) && nms.length>0 && nms.every(n=>d[n]==='N/A');
+  });
+  const gk=[]; for(let i=1;i<=3;i++) ['game','level','remark'].forEach(f=>gk.push('game'+i+'_'+f));
+  $('#gamesNA').checked = gk.every(k=>d[k]==='N/A');
+  const tk=[]; for(let i=1;i<=3;i++) ['type','org','paper','validClass','year','subject','marks','percent'].forEach(f=>tk.push('tet'+i+'_'+f));
+  $('#tetNA').checked = tk.every(k=>d[k]==='N/A');
+
+  [...new Set($$('#f [name]').map(e=>e.name))].forEach(n=>{
+    const els=$$('#f [name="'+n+'"]'), el=els[0];
+    let v=d[n]; if(v===undefined || v==='N/A') v='';
+    if(el.type==='radio') els.forEach(r=>r.checked=(r.value===v));
+    else if(el.type==='checkbox') el.checked=(v==='Agreed');
+    else if(el.type==='date') el.value=dmyToIso(v);
+    else if(el.tagName==='SELECT'){ if(v!=='') setSel(el,v); }
+    else el.value=v;
+  });
+  $('#tillDate').checked = d.exp1_to==='Till date';
+  calcAge(); refreshPrefs(); updateDeps(); updAllPct(); refreshAll();
+}
+
+async function startEdit(r, roll, dob){
+  editMode={roll, dob, left:r.editsLeft};
+  populate(r.data);
+  photoB64=r.photo||''; photoChanged=false; if(photoB64) $('#photoPrev').src=photoB64;
+  certExisting=!!r.cert;
+  if(r.cert){ $('#certNote').textContent='Existing certificate on file - upload a new PDF only if you want to replace it.'; renderPdf(b64ToU8(r.cert)); }
+  const rl=$('#roll'); rl.value=r.data.cbtRoll||roll; rl.readOnly=true; $('#rollMsg').textContent='Roll number cannot be changed.';
+  openView('Edit Application'); vShow('f');
+  const b=$('#editBanner'); b.hidden=false;
+  b.innerHTML='Editing application of Roll No. <b>'+esc(roll)+'</b>. You have <b>'+r.editsLeft+'</b> edit(s) left (including this one); saving uses one edit.';
+  $('#submitBtn').textContent='Save changes'; window.scrollTo(0,0);
+}
+
+/* ---------- events ---------- */
+function wireEvents(){
+  F().addEventListener('input', e=>{
+    const el=e.target;
+    if(el.dataset.digits!==undefined){ const nv=el.value.replace(/[^0-9]/g,''); if(nv!==el.value) el.value=nv; }
+    const m=(el.name||'').match(/^tet(\d)_marks$/);
+    if(m){ if(+el.value>150) el.value=el.value.slice(0,-1); updPct(m[1]); }
+    if(el.id==='schoolCode') updateDeps();
+    if(el.id==='pname') $('#declName').value=el.value;
+    el.classList.remove('bad');
+  });
+  F().addEventListener('change', e=>{
+    const el=e.target, n=el.name||'';
+    if(n==='post') fillSubjects();
+    if(n==='place') showVenue();
+    if(n==='dob') calcAge();
+    const t=n.match(/^tet(\d)_type$/); if(t) tetOrg(t[1]);
+    updateDeps(); refreshPrefs(); updAllPct();
+  });
+  $('#same').addEventListener('click', e=>{ e.preventDefault(); const f=F(); f.permAddress.value=f.postalAddress.value; f.permPin.value=f.postalPin.value; });
+  $('#viewPrint').addEventListener('click', ()=>{
+    const b=$('#viewPrint'), m=$('#doneMsg'); m.textContent=''; b.disabled=true;
+    google.script.run
+      .withSuccessHandler(r=>{ b.disabled=false; showPrint(r.data, r.photo, r.id); })
+      .withFailureHandler(er=>{ b.disabled=false; m.textContent=er.message||String(er); })
+      .getForPrint(state.data.cbtRoll, state.data.dob);
+  });
+  $('#newApp').addEventListener('click', restartApp);
+  $('#newBtn').addEventListener('click', restartApp);
+  $('#backBtn').addEventListener('click', ()=>{ $('#print').style.display='none'; $('#toolbar').hidden=true; $(printFrom==='admin' ? '#adminApp' : '#app').style.display='block'; });
+
+  $('#venueLink').addEventListener('click', e=>{ e.preventDefault(); showVenue(); });
+  $('#venueClose').addEventListener('click', ()=>{ $('#venueModal').hidden=true; });
+  $('#pdfClose').addEventListener('click', ()=>{ $('#pdfModal').hidden=true; });
+  $('#pdfBig').addEventListener('click', ()=>{ if(!certU8) return; $('#pdfModal').hidden=false; renderPdf(certU8, $('#pdfModalBody'), 1100, 20); });
+  $('#ePrint').addEventListener('click', ()=>{
+    const roll=$('#eRoll').value.trim(), dob=fmtDate($('#eDob').value), msg=$('#eMsg'); msg.textContent='';
+    if(!/^[0-9]{1,10}$/.test(roll) || !$('#eDob').value){ msg.textContent='Enter your CBT Roll Number and Date of Birth.'; return; }
+    const btn=$('#ePrint'); btn.disabled=true; btn.textContent='Loading...';
+    google.script.run
+      .withSuccessHandler(r=>{ btn.disabled=false; btn.textContent='Download / Print my application (PDF)'; showPrint(r.data, r.photo, r.id); })
+      .withFailureHandler(er=>{ btn.disabled=false; btn.textContent='Download / Print my application (PDF)'; msg.textContent=er.message||String(er); })
+      .getForPrint(roll, dob);
+  });
+
+  $('#eRoll').addEventListener('input', function(){ this.value=this.value.replace(/[^0-9]/g,''); });
+  $('#eLoad').addEventListener('click', ()=>{
+    const roll=$('#eRoll').value.trim(), dob=fmtDate($('#eDob').value), msg=$('#eMsg'); msg.textContent='';
+    if(!/^[0-9]{1,10}$/.test(roll) || !$('#eDob').value){ msg.textContent='Enter your CBT Roll Number and Date of Birth.'; return; }
+    const btn=$('#eLoad'); btn.disabled=true; btn.textContent='Loading...';
+    google.script.run
+      .withSuccessHandler(r=>{ btn.disabled=false; btn.textContent='Edit my application'; startEdit(r, roll, dob); })
+      .withFailureHandler(er=>{ btn.disabled=false; btn.textContent='Edit my application'; msg.textContent=er.message||String(er); })
+      .getForEdit(roll, dob);
+  });
+
+  F().addEventListener('submit', async function(e){
+    e.preventDefault(); const msg=$('#msg'); msg.textContent='';
+    const err=validate(); if(err){ msg.textContent=err; return; }
+    if(!photoB64){ msg.textContent='Please attach a passport size photograph.'; return; }
+    const cf=$('#cert').files[0];
+    if(!cf && !(editMode && certExisting)){ msg.textContent='Please attach the PCE Qualifying Certificate (PDF).'; $('#cert').scrollIntoView({block:'center'}); return; }
+    if(cf && (cf.type!=='application/pdf' || cf.size>5*1024*1024)){ msg.textContent='PCE certificate must be a PDF under 5 MB.'; return; }
+    const btn=$('#submitBtn'), label=btn.textContent; btn.disabled=true; btn.textContent='Please wait...';
+    try{
+      const data=collect();
+      const cert = cf ? { base64: await readB64(cf), mime:'application/pdf' } : null;
+      const photo = (!editMode || photoChanged) ? { base64: photoB64.split(',')[1], mime:'image/jpeg' } : null;
+      const ok=r=>{ data.formNumber=r.formNumber||''; $('#doneForm').textContent=data.formNumber; state.data=data; state.photo=photoB64; state.id=r.id;
+          $('#doneTitle').textContent = editMode ? 'Application updated' : 'Application submitted';
+          $('#doneEdits').textContent = editMode ? ('Edits remaining: '+r.editsLeft) : '';
+          $('#appId').textContent=r.id; $('#doneRoll').textContent=data.cbtRoll; vShow('done'); window.scrollTo(0,0); };
+      const fail=er=>{ btn.disabled=false; btn.textContent=label; msg.textContent='Failed: '+(er.message||er); };
+      if(editMode) google.script.run.withSuccessHandler(ok).withFailureHandler(fail).updateApplication({roll:editMode.roll, dob:editMode.dob}, data, photo, cert);
+      else google.script.run.withSuccessHandler(ok).withFailureHandler(fail).submitApplication(data, photo, cert);
+    }catch(er){ btn.disabled=false; btn.textContent=label; msg.textContent=String(er.message||er); }
+  });
+}
+
+/* Add New: reload the whole web app from scratch (top window, cache-busted URL) */
+function restartApp(){
+  try{ photoB64=''; state.data=null; state.photo=''; state.id=''; editMode=null; }catch(e){}
+  try{
+    if(APP_URL){ window.top.location.replace(APP_URL + (APP_URL.indexOf('?')<0 ? '?' : '&') + 'new=' + Date.now()); return; }
+  }catch(e){}
+  location.reload();
+}
+
+let printFrom='app';
+function showPrintHtml(html, from){
+  $('#print').innerHTML=html; printFrom=from||'app';
+  $('#print').style.setProperty('--zs', Math.min(1,(window.innerWidth-10)/794).toFixed(3));
+  ['app','adminApp','scanApp','srApp'].forEach(i=>{ const e=$('#'+i); if(e) e.style.display='none'; });
+  $('#print').style.display='block'; $('#toolbar').hidden=false; window.scrollTo(0,0);
+}
+function showPrint(d, photo, id){ showPrintHtml(buildPrint(d, photo, id), 'app'); }
+
+/* QR code printed on the form: scanning it opens the scan page (?scan=<ApplicationID>) */
+function qrHtml(id){
+  if(!id) return '';
+  const url=(APP_URL||'') + ((APP_URL||'').indexOf('?')>=0 ? '&' : '?') + 'scan=' + encodeURIComponent(id);
+  try{
+    if(window.qrcode){ const q=qrcode(0,'M'); q.addData(url); q.make(); return q.createSvgTag({cellSize:4, margin:0, scalable:true}); }
+  }catch(e){}
+  return '<img alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&data='+encodeURIComponent(url)+'">';
+}
+
+/* ---------- PRINT LAYOUT (2 x A4, same structure as the original DAV application form) ---------- */
+function buildPrint(d, photo, id){
+  const v = k => esc(d[k]);
+  const ck = c => `<span class="chk">${c?'&#10003;':''}</span>`;
+  const ageDate = d.ageAsOn || (CFG && CFG.ageCutoff ? dmy(CFG.ageCutoff,'-') : '31-03-2026');
+  const prefix = d.cbtPrefix || (CFG && CFG.prefix) || 'DAVCBT/DEC26/';
+  const yr = d.cbtYear || (CFG && CFG.year) || '';
+  const em = String(d.email||''), at = em.indexOf('@');
+  const e1 = at>=0 ? em.slice(0,at) : em, e2 = at>=0 ? em.slice(at+1) : '';
+  const cells = n => Array(n).fill('<i></i>').join('');
+  const working = `<div class="fr"><span class="n ind"></span><span class="lb">Working in DAV School under Bihar Zone :</span><span>Yes${ck(d.workingDAV==='Yes')} No${ck(d.workingDAV==='No')}</span></div>` +
+    (d.workingDAV==='Yes' ? `<div class="fr"><span class="n ind"></span><span class="lb">School Code</span><span class="v m">${v('davSchoolCode')}</span><span class="lb" style="margin-left:4mm">School Name</span><span class="v">${v('davSchoolName')}</span></div>` : '');
+
+  let expRows='';
+  for(let i=1;i<=4;i++) expRows += `<tr><td class="sn">0${i}</td><td>${v('exp'+i+'_institution')}</td><td>${v('exp'+i+'_post')}</td><td>${v('exp'+i+'_from')}</td><td>${v('exp'+i+'_to')}</td><td>${v('exp'+i+'_class')}</td><td>${v('exp'+i+'_subject')}</td><td>${v('exp'+i+'_salary')}</td></tr>`;
+
+  const p1 = `
+  <div class="sheet p1"><div class="frame">
+    <div class="hd">
+      <div class="logo"><img src="${LOGO}" alt="DAV"></div>
+      <div class="hmid"><div class="om">&#2405; &#2323;&#2409;&#2350;&#2381; &#2405;</div>
+        <div class="t1">D.A.V. PUBLIC SCHOOLS</div><div class="t2">BIHAR ZONE</div><div class="t3">Application Form and Bio-Data</div></div>
+      <div class="fcn"><div class="l">Form Control<br>Number :</div><div class="b">${v('formNumber')}</div></div>
+      <div class="qr">${qrHtml(id)}</div>
+    </div>
+
+    <div class="of">
+      <div class="pill">For Office Use Only</div>
+      <div class="rem">Chairman Board Remarks &amp; recommendations:</div>
+      <div class="oj"><span class="sq"></span>Job offered but not accepted yet</div>
+      <div class="oj"><span class="sq"></span>Job offered and accepted</div>
+      <div class="o3">
+        <div class="forps">For DAV PS.......</div>
+        <div class="pc"><div class="pcga"><span>P<sup>*</sup></span><span>C<sup>*</sup></span><span>G<sup>*</sup></span><span>A<sup>*</sup></span></div><div class="post">Post:</div></div>
+        <div class="mx"><div class="h">On Maximum Salary Up To</div><div class="bd"></div></div>
+      </div>
+      <div class="note">*P=Probation, C=Contract, G= Guest Employee, A= Any Other</div>
+      <div class="sg"><i></i>Signature of Chairman<br>Interview Board</div>
+    </div>
+
+    <div class="corr">For all correspondences, please quote CBT Roll Number Place &amp; Date of Interview</div>
+
+    <div class="idw">
+      <div class="idl">
+        <div class="fr"><span class="n">A.</span><span class="lb w">Place of Interview</span><span class="cl">:</span><span class="v nb">${v('place')}</span></div>
+        <div class="fr"><span class="n">B.</span><span class="lb w">Date of Interview</span><span class="cl">:</span><span class="dts">${cells(2)}<b>-</b>${cells(2)}<b>-</b>${cells(4)}</span></div>
+        <div class="fr"><span class="n">C.</span><span class="lb" style="font-size:8pt;width:44mm;margin-right:0">Application for the Post &amp; Subject</span><span class="cl"></span><span class="v">${v('post')}${d.subject?' / '+v('subject'):''}</span></div>
+        <div class="fr"><span class="n">D.</span><span class="lb w" style="font-weight:700">CBT Roll Number</span><span class="cl"></span><span style="font:italic 700 9.5pt Georgia,serif;white-space:nowrap">${esc(prefix)}&nbsp;</span><span class="v">${v('cbtRoll')}</span><span style="font:italic 700 9.5pt Georgia,serif;white-space:nowrap">&nbsp;Year :&nbsp;</span><span class="v s" style="width:14mm">${esc(yr)}</span></div>
+        <div class="fr"><span class="n ind">1.</span><span class="lb">(a) Name (Mr/Mrs/Miss)</span><span class="v">${v('name')}</span></div>
+        <div class="fr"><span class="n ind"></span><span class="lb" style="margin-left:0">(b) Father's Name</span><span class="v">${v('fatherName')}</span></div>
+        <div class="fr"><span class="n ind"></span><span class="lb">(c) Mother's Name</span><span class="v">${v('motherName')}</span></div>
+      </div>
+      <div class="photo">${photo?`<img src="${photo}">`:''}</div>
+    </div>
+
+    <div class="fr"><span class="n ind">2.</span><span class="lb">Date of Birth</span><span class="v m" style="width:36mm">${v('dob')}</span><span class="lb" style="margin-left:3mm">Age (as on ${esc(ageDate)})</span><span class="v s">${v('ageY')}</span><span class="lb" style="margin-left:1mm">Y</span><span class="v s">${v('ageM')}</span><span class="lb" style="margin-left:1mm">M</span><span class="v s">${v('ageD')}</span><span class="lb" style="margin-left:1mm">D</span></div>
+    <div class="fr"><span class="n ind"></span><span class="lb">Gender :</span><span>Male${ck(d.gender==='Male')} Female${ck(d.gender==='Female')} Transgender${ck(d.gender==='Transgender')}</span></div>
+    <div class="fr"><span class="n ind">3.</span><span class="lb">Marital Status:</span><span>Single${ck(d.maritalStatus==='Single')} Married${ck(d.maritalStatus==='Married')}</span><span class="n" style="margin-left:6mm;width:6mm">4.</span><span class="lb">Category :</span><span class="v m">${v('category')}</span></div>
+    ${d.maritalStatus==='Married' ? `<div class="fr"><span class="n ind"></span><span class="lb">Spouse Name</span><span class="v">${v('spouseName')}</span></div>` : ''}
+    ${working}
+    <div class="fr"><span class="n ind">5.</span><span class="lb">(a) Postal Address with pin code</span><span class="v">${v('postalAddress')}</span></div>
+    <div class="fr"><span class="v nb" style="margin-left:7mm">&nbsp;</span><span class="lb" style="margin-left:2mm">Pin Code</span><span class="v m">${v('postalPin')}</span></div>
+    <div class="fr"><span class="n ind"></span><span class="lb">(b) Permanent Address with pin code</span><span class="v">${v('permAddress')}</span></div>
+    <div class="fr"><span class="v nb" style="margin-left:7mm">&nbsp;</span><span class="lb" style="margin-left:2mm">Pin Code</span><span class="v m">${v('permPin')}</span></div>
+    <div class="fr"><span class="n ind"></span><span class="lb">(c) Phone Number</span><span class="v">${v('phone')}</span><span class="lb" style="margin-left:4mm">WhatsApp Number</span><span class="v">${v('whatsapp')}</span></div>
+    <div class="fr"><span class="n ind"></span><span class="lb">(d) Email Id</span><span class="v">${esc(e1)}</span><span class="lb" style="margin:0 1mm">@</span><span class="v">${esc(e2)}</span></div>
+    <div class="fr"><span class="n ind">6.</span><span class="lb">Experience (Years)</span><span class="v m">${v('expYears')}</span><span class="lb" style="margin-left:3mm">(Give details of last 04 Institution served)</span></div>
+    <table class="pt" style="margin-top:1.2mm">
+      <tr><th rowspan="2" style="width:9mm">S/N</th><th rowspan="2">Name and address of the institution</th><th rowspan="2" style="width:13mm">Post</th><th colspan="2">Period of service (date)</th><th colspan="2">Classes and Subject Taught</th><th rowspan="2" style="width:27mm">Monthly Salary Drawn</th></tr>
+      <tr><th style="width:23mm">From</th><th style="width:23mm">To</th><th style="width:14mm">Class</th><th style="width:26mm">Subject</th></tr>
+      ${expRows}
+    </table>
+    <div class="pgno">01</div>
+  </div><div class="pto">P.T.O.</div></div>`;
+
+  let qRows='';
+  QL.forEach((q,idx)=>{ const i=idx+1;
+    const exam = i===1 ? esc(q.replace(' / ',' /')) : `${esc(q)}${d['q'+i+'_course']?'<div class="cn" style="color:#222;font-weight:700;font-style:normal;font-family:Arial">'+v('q'+i+'_course')+'</div>':'<div class="cn">Course Name</div>'}`;
+    qRows += `<tr><td class="sn">0${i}</td><td>${exam}</td><td>${v('q'+i+'_certNo')}</td><td>${v('q'+i+'_division')}</td><td>${v('q'+i+'_percent')}</td><td>${v('q'+i+'_year')}</td><td>${v('q'+i+'_medium')}</td><td>${v('q'+i+'_university')}</td><td>${v('q'+i+'_subjects')}</td><td style="text-align:center">${v('q'+i+'_distance')}</td></tr>`; });
+  let tRows='';
+  for(let i=1;i<=3;i++) tRows += `<tr><td class="sn">0${i}</td><td>${v('tet'+i+'_type')}</td><td>${v('tet'+i+'_paper')}</td><td>${v('tet'+i+'_validClass')}</td><td>${v('tet'+i+'_year')}</td><td>${v('tet'+i+'_org')}</td><td>${v('tet'+i+'_subject')}</td><td>${v('tet'+i+'_marks')}</td><td>${v('tet'+i+'_percent')}</td></tr>`;
+  let gRows='';
+  for(let i=1;i<=3;i++) gRows += `<tr><td>${v('game'+i+'_game')}</td><td>${v('game'+i+'_level')}</td><td>${v('game'+i+'_remark')}</td></tr>`;
+  const ref = n => `<div>
+      <div class="fr"><span class="lb" style="margin-right:1mm">${n}.</span><span class="v dot">${v('ref'+n+'Name')}</span></div>
+      <div class="fr"><span class="v dot">${v('ref'+n+'Prof')}</span></div>
+      <div class="fr"><span class="v dot">${v('ref'+n+'Addr')}</span></div></div>`;
+  const dl = (n,label,val) => `<div class="fr"><span class="n ind" style="margin-left:7mm;width:auto;margin-right:1.5mm">${n}</span><span class="lb">${label}</span><span class="v dot">${val}</span></div>`;
+
+  const p2 = `
+  <div class="sheet pr"><div class="frame" style="padding-top:0.6mm">
+    <div class="bar7">7- ACADEMIC &amp; OTHER QUALIFICATION</div>
+    <table class="pt">
+      <tr><th style="width:8mm">SN</th><th style="width:34mm;text-align:left">Examination</th><th style="width:25mm">Certificate Number</th><th style="width:12mm">Division</th><th style="width:14mm">%age / CGPA</th><th style="width:11mm">Year</th><th style="width:15mm">Medium</th><th>University/ Board</th><th style="width:30mm">Subjects Studied</th><th style="width:12mm">is distance</th></tr>
+      ${qRows}
+    </table>
+    <div class="tetcap">TET &ndash; Teacher Eligibility Test <span>(STET: State Teacher Eligibility Test &middot; CTET: Central Teacher Eligibility Test)</span></div>
+    <table class="pt" style="margin-top:0">
+      <tr><th style="width:8mm">S/N</th><th style="width:16mm">TET</th><th style="width:22mm;text-align:left">Level</th><th style="width:20mm">Valid for class</th><th style="width:11mm">Year</th><th style="text-align:left">Organized by</th><th style="width:30mm;text-align:left">Subject</th><th style="width:16mm">Marks Obt.</th><th style="width:12mm">%age</th></tr>
+      ${tRows}
+    </table>
+    ${dl('8.','Minimum Salary Acceptable &#8377;',v('minSalary'))}
+    ${dl('9.','Publication if any',v('publication'))}
+    <div class="fr" style="margin-left:7mm"><span class="lb">10. Proficiency in Games &amp; Sports (Indicate Level-School/College/University/District/State/National)</span></div>
+    <table class="pt" style="width:92%;margin:1mm 0 0 12mm"><tr><th>Game Played</th><th>Level</th><th style="width:60%">Details / Remark</th></tr>${gRows}</table>
+    ${dl('11.','Proficiency in Co-Curricular Activities (Indicate Level)',v('coCurricular'))}
+    <div class="fr" style="margin-left:7mm"><span class="lb">12. Place / Bihar Zone of Preference, if selected:</span></div>
+    <table class="pt" style="width:96%;margin:0.5mm 0 0 8mm"><tr><th>Preference 01</th><th>Preference 02</th><th>Preference 03</th><th style="width:34%">Any Where in Bihar (Yes/No)</th></tr>
+      <tr><td>${v('pref1')}</td><td>${v('pref2')}</td><td>${v('pref3')}</td><td style="text-align:center">${v('anywhereBihar')}</td></tr></table>
+    ${dl('13.','Mention time period required for joining (if selected) :',v('joiningTime'))}
+    <div class="fr" style="margin-left:7mm"><span class="lb">14. Reference (Give Name, Profession and Address of two references, who can identity you)</span></div>
+    <div class="refs" style="margin-left:7mm">${ref(1)}${ref(2)}</div>
+    <div class="fr" style="margin-left:7mm"><span class="lb">15. DECLARATION:</span></div>
+    <div class="decl">I solemnly declare that the statements given by me is correct to the best of my knowledge. <b>If at any stage any discrepancy is found in my document my selection will stand cancelled.</b> If selected, I shall abide by the service terms &amp; conditions of DAV College Managing Committee, New Delhi, and my services are transferable to any of the DAV Public Schools running under DAV CMC, New Delhi.</div>
+    <div class="decl hi">मैं सत्यनिष्ठा से घोषणा करता/करती हूँ कि मेरे द्वारा दिए गए कथन मेरी जानकारी में सही हैं। <b>यदि किसी भी स्तर पर मेरे दस्तावेज़ों में कोई विसंगति पाई जाती है, तो मेरा चयन रद्द माना जाएगा।</b> चयनित होने पर मैं डी.ए.वी. कॉलेज प्रबंधकारिणी समिति, नई दिल्ली की सेवा शर्तों एवं नियमों का पालन करूँगा/करूँगी तथा मेरी सेवाएँ डी.ए.वी. सी.एम.सी., नई दिल्ली के अंतर्गत संचालित किसी भी डी.ए.वी. पब्लिक स्कूल में स्थानांतरणीय होंगी।</div>
+    <div class="sg2" style="margin:3mm 0 0 9mm">
+      <div><div class="fr"><span class="lb">Date:</span><span class="v dot">${v('declDate')}</span></div><div class="fr"><span class="lb">Place :</span><span class="v dot">${v('declPlace')}</span></div></div>
+      <div><div class="fr"><span class="lb">Full signature:</span><span class="v dot">&nbsp;</span></div><div class="fr"><span class="lb">Name:</span><span class="v dot">${v('declName')||v('name')}</span></div></div>
+    </div>
+    <div class="pgno">02</div>
+  </div></div>`;
+  return p1 + p2;
+}
+
+/* ================= ADMIN PANEL ================= */
+const ADM = { token:'', rows:[], view:[], sel:new Set(), page:1, size:50, busy:false };
+function gs(fn, ...args){
+  return new Promise((res,rej)=>google.script.run.withSuccessHandler(res).withFailureHandler(e=>rej(new Error((e&&e.message)||String(e))))[fn](...args));
+}
+async function admCall(fn, ...args){
+  try{ return await gs(fn, ADM.token, ...args); }
+  catch(e){ if(/Session expired/i.test(e.message)) admLogoutUI(e.message); throw e; }
+}
+function admOpen(){ $('#app').style.display='none'; $('#adminApp').style.display='block'; window.scrollTo(0,0); }
+function admLogoutUI(msg){
+  ADM.token=''; ADM.rows=[]; ADM.view=[]; ADM.sel=new Set();
+  $('#admMain').hidden=true; $('#admLogin').hidden=false; $('#admPw').value=''; $('#admMsg').textContent=msg||'';
+}
+const countBy = (rows, f) => rows.reduce((m,r)=>{ const k=f(r)||'(blank)'; m[k]=(m[k]||0)+1; return m; }, {});
+const uniq = a => [...new Set(a)].filter(Boolean).sort();
+const optHtml = (arr, all) => `<option value="">${all}</option>` + arr.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');
+
+async function admLoad(){
+  const r = await admCall('adminList');
+  ADM.rows = r.rows;
+  $('#admName').textContent = r.name; $('#admPlaces').textContent = r.places.indexOf('*')>=0 ? 'All venues' : r.places.join(' | ');
+  const keepP=$('#fPlace').value, keepPo=$('#fPost').value, keepS=$('#fSubject').value;
+  $('#fPlace').innerHTML = optHtml(uniq(ADM.rows.map(x=>x.place)), 'All venues');
+  $('#fPost').innerHTML = optHtml(uniq(ADM.rows.map(x=>x.post)), 'All posts');
+  $('#fSubject').innerHTML = optHtml(uniq(ADM.rows.map(x=>x.subject)), 'All subjects');
+  $('#fPlace').value=keepP; $('#fPost').value=keepPo; $('#fSubject').value=keepS;
+  admDash(); admFilter();
+}
+
+function admDash(){
+  const R=ADM.rows, g=countBy(R,x=>x.gender), dav=R.filter(x=>x.workingDAV==='Yes').length;
+  const k=(l,v)=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`;
+  $('#kpis').innerHTML = k('Total applications',R.length)+k('Male',g.Male||0)+k('Female',g.Female||0)+k('Transgender',g.Transgender||0)+
+                         k('Working in DAV (Yes)',dav)+k('Not working in DAV',R.length-dav);
+  const ps={}; R.forEach(x=>{ const p=x.post||'(blank)', s=x.subject||'(blank)'; ps[p]=ps[p]||{}; ps[p][s]=(ps[p][s]||0)+1; });
+  let h='<table class="at" style="min-width:0"><tr><th>Post</th><th>Subject</th><th>Count</th></tr>';
+  Object.keys(ps).sort().forEach(p=>{
+    const tot=Object.values(ps[p]).reduce((a,b)=>a+b,0);
+    h+=`<tr class="pst"><td>${esc(p)}</td><td>All subjects</td><td>${tot}</td></tr>`;
+    Object.keys(ps[p]).sort().forEach(s=>{ h+=`<tr><td></td><td>${esc(s)}</td><td>${ps[p][s]}</td></tr>`; });
+  });
+  $('#psBox').innerHTML = R.length ? h+'</table>' : '<div class="hint">No data yet.</div>';
+  const pl={}; R.forEach(x=>{ const p=x.place||'(blank)'; pl[p]=pl[p]||{t:0,Male:0,Female:0,Transgender:0,dav:0}; pl[p].t++; if(pl[p][x.gender]!==undefined) pl[p][x.gender]++; if(x.workingDAV==='Yes') pl[p].dav++; });
+  let hp='<table class="at" style="min-width:0"><tr><th>Venue</th><th>Total</th><th>M</th><th>F</th><th>T</th><th>DAV</th></tr>';
+  Object.keys(pl).sort().forEach(p=>{ const o=pl[p]; hp+=`<tr><td>${esc(p)}</td><td>${o.t}</td><td>${o.Male}</td><td>${o.Female}</td><td>${o.Transgender}</td><td>${o.dav}</td></tr>`; });
+  $('#placeBox').innerHTML = R.length ? hp+'</table>' : '<div class="hint">No data yet.</div>';
+}
+
+function admFilter(){
+  const p=$('#fPlace').value, po=$('#fPost').value, su=$('#fSubject').value, ge=$('#fGender').value, da=$('#fDav').value, t=$('#fText').value.trim().toLowerCase();
+  ADM.view = ADM.rows.filter(x=>(!p||x.place===p)&&(!po||x.post===po)&&(!su||x.subject===su)&&(!ge||x.gender===ge)&&(!da||x.workingDAV===da)&&
+    (!t || [x.roll,x.formNumber,x.name,x.phone,x.email].some(v=>String(v||'').toLowerCase().indexOf(t)>=0)));
+  ADM.page=1; admTable();
+}
+function admTargets(){
+  const sel=ADM.view.filter(x=>ADM.sel.has(x.roll)).map(x=>x.roll);
+  return sel.length ? sel : ADM.view.map(x=>x.roll);
+}
+function admTable(){
+  const V=ADM.view, pages=Math.max(1,Math.ceil(V.length/ADM.size)); if(ADM.page>pages) ADM.page=pages;
+  const slice=V.slice((ADM.page-1)*ADM.size, ADM.page*ADM.size);
+  const allSel = V.length>0 && V.every(x=>ADM.sel.has(x.roll));
+  let h=`<tr><th><input type="checkbox" id="selAll" ${allSel?'checked':''} title="Select all filtered records"></th><th>#</th><th>Form No.</th><th>Roll</th><th>Name</th><th>Post</th><th>Subject</th><th>Gender</th><th>DAV</th><th>Category</th><th>Venue</th><th>Phone</th><th>Submitted</th><th>Edits</th><th>Form</th></tr>`;
+  slice.forEach((x,i)=>{ h+=`<tr><td><input type="checkbox" class="rs" data-r="${esc(x.roll)}" ${ADM.sel.has(x.roll)?'checked':''}></td><td>${(ADM.page-1)*ADM.size+i+1}</td><td>${esc(x.formNumber)}</td><td>${esc(x.roll)}</td><td>${esc(x.name)}</td><td>${esc(x.post)}</td><td>${esc(x.subject)}</td><td>${esc(x.gender)}</td><td>${esc(x.workingDAV)}${x.davSchoolCode?' ('+esc(x.davSchoolCode)+')':''}</td><td>${esc(x.category)}</td><td>${esc(x.place)}</td><td>${esc(x.phone)}</td><td>${esc(x.ts)}</td><td>${esc(x.editCount||0)}</td><td><button type="button" class="btn alt pdf1" data-r="${esc(x.roll)}" style="padding:3px 10px;font-size:12px">PDF</button></td></tr>`; });
+  if(!slice.length) h+='<tr><td colspan="15" style="text-align:center;color:var(--muted)">No applications found.</td></tr>';
+  $('#admT').innerHTML=h;
+  $('#pInfo').textContent=`Page ${ADM.page} of ${pages} - ${V.length} record(s) shown of ${ADM.rows.length}`;
+  const n=ADM.view.filter(x=>ADM.sel.has(x.roll)).length;
+  $('#admTargetTxt').textContent = n ? `${n} selected record(s) will be used for export / PDF.` : `No rows ticked: all ${V.length} filtered record(s) will be used.`;
+}
+
+function dlBlob(blob, name){
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 5000);
+}
+const chunk=(a,n)=>{ const o=[]; for(let i=0;i<a.length;i+=n) o.push(a.slice(i,i+n)); return o; };
+const stamp=()=>{ const d=new Date(); return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'_'+pad(d.getHours())+pad(d.getMinutes()); };
+function admBusy(on,msg){ ADM.busy=on; ['bXlsx','bZip','bPdf'].forEach(i=>$('#'+i).disabled=on); $('#admProg').textContent=msg||''; }
+
+async function admFetchRows(rolls, extraCols){
+  let headers=null, rows=[];
+  for(const part of chunk(rolls,150)){
+    const r=await admCall('adminRows', part); headers=r.headers; rows=rows.concat(r.rows);
+    $('#admProg').textContent=`Reading data... ${rows.length} / ${rolls.length}`;
+  }
+  const order={}; rolls.forEach((r,i)=>order[r]=i);
+  const ri=headers.indexOf('cbtRoll'); rows.sort((a,b)=>order[a[ri]]-order[b[ri]]);
+  return { headers, rows };
+}
+function toXlsx(headers, rows){
+  const ws=XLSX.utils.aoa_to_sheet([headers].concat(rows));
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Applications');
+  return XLSX.write(wb,{bookType:'xlsx',type:'array'});
+}
+function toCsv(headers, rows){
+  const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+  return '\ufeff'+[headers].concat(rows).map(r=>r.map(q).join(',')).join('\r\n');
+}
+
+async function admExport(withFiles){
+  const rolls=admTargets(); if(!rolls.length){ $('#admProg').textContent='Nothing to export.'; return; }
+  if(withFiles && !window.JSZip){ $('#admProg').textContent='ZIP library could not be loaded - use "Export data (Excel)" instead.'; return; }
+  admBusy(true,'Preparing export...');
+  try{
+    const { headers, rows } = await admFetchRows(rolls);
+    const ri=headers.indexOf('cbtRoll');
+    let H=headers, R=rows;
+    if(withFiles){ H=headers.concat(['photoFile','certificateFile']); R=rows.map(r=>r.concat(['photos/'+r[ri]+'.jpg','certificates/'+r[ri]+'_PCE_CERTIFICATE.pdf'])); }
+    let data, ext;
+    if(window.XLSX){ data=new Blob([toXlsx(H,R)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}); ext='xlsx'; }
+    else { data=new Blob([toCsv(H,R)],{type:'text/csv;charset=utf-8'}); ext='csv'; }
+    if(!withFiles){ dlBlob(data,'DAV_Applications_'+stamp()+'.'+ext); admBusy(false,`Exported ${R.length} record(s).`); return; }
+
+    const zip=new JSZip(); zip.file('DAV_Applications.'+ext, data);
+    let done=0, missing=0;
+    for(const part of chunk(rolls,3)){
+      const files=await admCall('adminFiles', part);
+      files.forEach(f=>{
+        if(f.photo) zip.file('photos/'+f.roll+'.jpg', f.photo, {base64:true}); else missing++;
+        if(f.cert)  zip.file('certificates/'+f.roll+'_PCE_CERTIFICATE.pdf', f.cert, {base64:true}); else missing++;
+      });
+      done+=part.length; $('#admProg').textContent=`Collecting photos & certificates... ${done} / ${rolls.length}`;
+    }
+    $('#admProg').textContent='Building ZIP file...';
+    const blob=await zip.generateAsync({type:'blob', compression:'DEFLATE'}, m=>{ $('#admProg').textContent='Building ZIP file... '+Math.round(m.percent)+'%'; });
+    dlBlob(blob,'DAV_Applications_'+stamp()+'.zip');
+    admBusy(false,`ZIP ready: ${rolls.length} record(s)` + (missing?` (${missing} file(s) missing in Drive)`:'') + '.');
+  }catch(e){ admBusy(false,'Export failed: '+e.message); }
+}
+
+async function admPdf(rolls){
+  if(!rolls.length){ $('#admProg').textContent='Nothing to print.'; return; }
+  admBusy(true,'Preparing forms...');
+  try{
+    let items=[];
+    for(const part of chunk(rolls,10)){
+      const r=await admCall('adminForms', part); items=items.concat(r);
+      $('#admProg').textContent=`Preparing forms... ${items.length} / ${rolls.length}`;
+    }
+    const order={}; rolls.forEach((r,i)=>order[r]=i); items.sort((a,b)=>order[a.data.cbtRoll]-order[b.data.cbtRoll]);
+    showPrintHtml(items.map(it=>buildPrint(it.data,it.photo,it.id)).join(''), 'admin');
+    admBusy(false,'');
+  }catch(e){ admBusy(false,'Could not prepare forms: '+e.message); }
+}
+
+function wireAdmin(){
+  const open=e=>{ if(e) e.preventDefault(); admOpen(); };
+  $('#adminLink').addEventListener('click', open);
+  $('#admBack').addEventListener('click', ()=>{ $('#adminApp').style.display='none'; $('#app').style.display='block'; });
+  $('#admLoginBtn').addEventListener('click', async ()=>{
+    const id=$('#admId').value.trim(), pw=$('#admPw').value; $('#admMsg').textContent='';
+    const b=$('#admLoginBtn'); b.disabled=true; b.textContent='Please wait...';
+    try{
+      const r=await gs('adminLogin', id, pw); ADM.token=r.token;
+      $('#admLogin').hidden=true; $('#admMain').hidden=false; await admLoad();
+    }catch(e){ $('#admMsg').textContent=e.message; admLogoutUI(e.message); }
+    b.disabled=false; b.textContent='Login';
+  });
+  $('#admPw').addEventListener('keydown', e=>{ if(e.key==='Enter') $('#admLoginBtn').click(); });
+  $('#admLogout').addEventListener('click', async ()=>{ try{ await gs('adminLogout', ADM.token); }catch(e){} admLogoutUI('Logged out.'); });
+  $('#admRefresh').addEventListener('click', async ()=>{ try{ await admLoad(); }catch(e){ $('#admProg').textContent=e.message; } });
+  ['fPlace','fPost','fSubject','fGender','fDav'].forEach(i=>$('#'+i).addEventListener('change', admFilter));
+  $('#fText').addEventListener('input', admFilter);
+  $('#pPrev').addEventListener('click', ()=>{ if(ADM.page>1){ ADM.page--; admTable(); } });
+  $('#pNext').addEventListener('click', ()=>{ ADM.page++; admTable(); });
+  $('#admT').addEventListener('change', e=>{
+    const el=e.target;
+    if(el.id==='selAll'){ ADM.view.forEach(x=>{ if(el.checked) ADM.sel.add(x.roll); else ADM.sel.delete(x.roll); }); admTable(); }
+    else if(el.classList.contains('rs')){ if(el.checked) ADM.sel.add(el.dataset.r); else ADM.sel.delete(el.dataset.r); admTable(); }
+  });
+  $('#admT').addEventListener('click', e=>{ const b=e.target.closest('.pdf1'); if(b && !ADM.busy) admPdf([b.dataset.r]); });
+  $('#bXlsx').addEventListener('click', ()=>admExport(false));
+  $('#bZip').addEventListener('click', ()=>admExport(true));
+  $('#bPdf').addEventListener('click', ()=>admPdf(admTargets()));
+}
+
+/* ================= HOME & NAVIGATION ================= */
+const ST = (CFG && CFG.status) || { state:'open', pdfOpen:true };
+const PORTAL = 'DAV CBT Phase - II (Demo / Interview)';
+function vShow(id){
+  ['vNotice','editPanel','f','done'].forEach(x=>{ const e=$('#'+x); if(e) e.hidden = (x!==id); });
+  if(id!=='f') $('#editBanner').hidden=true;
+}
+function showHome(){ $('#view').hidden=true; $('#home').hidden=false; window.scrollTo(0,0); }
+function openView(title){ $('#home').hidden=true; $('#view').hidden=false; $('#vTitle').textContent=title; window.scrollTo(0,0); }
+const HOURGLASS = '<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#d92d4b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12M6 22h12"/><path d="M7 2v4a5 5 0 002 4l3 2-3 2a5 5 0 00-2 4v4"/><path d="M17 2v4a5 5 0 01-2 4l-3 2 3 2a5 5 0 012 4v4"/></svg>';
+const CLOCK = '<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+function showNotice(kind){
+  const o = {
+    closed:{ cls:'closed', ic:HOURGLASS, h:'Last Date Over', title:'Application Closed',
+      p:`The application window for <b>${PORTAL}</b> closed on <b>${esc(ST.stopText)}</b>.`, big:'Please contact the Administrator.' },
+    soon:{ cls:'soon', ic:CLOCK, h:'Opening Soon', title:'Application Opens Soon',
+      p:`The application form for <b>${PORTAL}</b> will open on <b>${esc(ST.liveText)}</b>.`, big:'Thank you for your patience.' },
+    pdf:{ cls:'pdf', ic:CLOCK, h:'Download Opens Soon', title:'Download Application Form',
+      p:`The application PDF can be downloaded from <b>${esc(ST.pdfText)}</b>.`, big:'Please visit again on that date.' },
+    err:{ cls:'closed', ic:HOURGLASS, h:'Service Unavailable', title:'Application', p:'The form settings could not be loaded.', big:'Please contact the Administrator.' }
+  }[kind];
+  openView(o.title);
+  $('#vNotice').innerHTML = `<div class="notice ${o.cls}"><div class="nicon"><i></i><i></i><i></i>${o.ic}</div><h2>${o.h}</h2><p>${o.p}</p><p class="big">${o.big}</p><button type="button" class="btn" id="nHome">Back to Home</button></div>`;
+  vShow('vNotice');
+}
+function goApply(){
+  if(CFG.error) return showNotice('err');
+  if(ST.state==='closed') return showNotice('closed');
+  if(ST.state==='notyet') return showNotice('soon');
+  openView('Apply - DAV CBT Phase - II'); vShow('f');
+}
+function showPanel(mode){
+  const p=$('#editPanel'); p.dataset.mode=mode; $('#eMsg').textContent='';
+  $('#ePanelTitle').textContent = mode==='edit' ? 'Edit your submitted application (maximum 2 edits)' : 'Download your application form (PDF)';
+  $('#eLoad').hidden = mode!=='edit'; $('#ePrint').hidden = mode!=='dl';
+  vShow('editPanel'); setTimeout(()=>{ try{ $('#eRoll').focus(); }catch(e){} }, 300);
+}
+function goEdit(){
+  if(CFG.error) return showNotice('err');
+  if(ST.state==='closed') return showNotice('closed');
+  if(ST.state==='notyet') return showNotice('soon');
+  openView('Edit Existing Data'); showPanel('edit');
+}
+function goDownload(){
+  if(CFG.error) return showNotice('err');
+  if(!ST.pdfOpen) return showNotice('pdf');
+  openView('Download Application Form'); showPanel('dl');
+}
+function initHome(){
+  const a=$('#chipApply'), d=$('#chipDl'), e=$('#chipEdit');
+  if(ST.state==='open'){ a.className='mchip live'; a.textContent = ST.stopText ? 'OPEN \u00b7 till ' + ST.stopText : 'OPEN'; }
+  else if(ST.state==='closed'){ a.className='mchip bad'; a.textContent='CLOSED \u00b7 Last date over'; $('#btnApply').classList.add('off'); e.hidden=false; e.className='mchip bad'; e.textContent='CLOSED'; $('#btnEdit').classList.add('off'); }
+  else { a.className='mchip'; a.textContent='Opens ' + ST.liveText; $('#btnApply').classList.add('off'); }
+  if(!ST.pdfOpen){ d.hidden=false; d.textContent='Available from ' + ST.pdfText; }
+}
+function mobileizeTables(){      /* label every cell so the tables can turn into stacked cards on phones */
+  $$('table.mt').forEach(t=>{
+    const rows=Array.from(t.querySelectorAll('tr')); if(!rows.length) return;
+    const ths=Array.from(rows[0].children).map(x=>x.textContent.trim());
+    rows.slice(1).forEach(tr=>Array.from(tr.children).forEach((td,i)=>{ td.dataset.th=ths[i]||''; }));
+  });
+}
+function wireNav(){
+  $('#btnEdit').addEventListener('click', goEdit);
+  $('#btnDl').addEventListener('click', goDownload);
+  $('#btnApply').addEventListener('click', goApply);
+  $('#vBack').addEventListener('click', ()=>{ if(editMode || state.data) restartApp(); else showHome(); });
+  $('#vNotice').addEventListener('click', e=>{ if(e.target.closest('#nHome')) showHome(); });
+}
+
+/* ================= SCAN RESULTS (view only, Admins tab login) ================= */
+const SR = { token:'', rows:[], from:'app' };
+function srShow(login){ $('#srLogin').hidden=!login; $('#srMain').hidden=login; }
+function srOpen(from){
+  SR.from=from;
+  ['app','adminApp','scanApp'].forEach(i=>{ const e=$('#'+i); if(e) e.style.display='none'; });
+  $('#srApp').style.display='block'; window.scrollTo(0,0);
+  if(from==='admin' && typeof ADM!=='undefined' && ADM.token) SR.token=ADM.token;
+  if(SR.token) srLoad().catch(srFail); else srShow(true);
+}
+function srFail(e){
+  if(/Session expired/i.test(e.message)){ SR.token=''; $('#srMsg').textContent=''; } else $('#srMsg').textContent=e.message;
+  srShow(true);
+}
+async function srLoad(){
+  const r=await gs('scanResults', SR.token); SR.rows=r.rows;
+  $('#srName').textContent=r.name; $('#srPlaces').textContent = r.places.indexOf('*')>=0 ? 'All venues' : r.places.join(' | ');
+  const keep=['srLevelF','srRemarkF','srPostF','srSubjF'].map(i=>$('#'+i).value);
+  $('#srLevelF').innerHTML=optHtml(uniq(SR.rows.map(x=>x.level)),'All levels');
+  $('#srRemarkF').innerHTML=optHtml(uniq(SR.rows.map(x=>x.remark)),'All remarks');
+  $('#srPostF').innerHTML=optHtml(uniq(SR.rows.map(x=>x.post)),'All posts');
+  $('#srSubjF').innerHTML=optHtml(uniq(SR.rows.map(x=>x.subject)),'All subjects');
+  ['srLevelF','srRemarkF','srPostF','srSubjF'].forEach((i,k)=>{ $('#'+i).value=keep[k]; });
+  srRender(); srShow(false);
+}
+function srRender(){
+  const lv=$('#srLevelF').value, rm=$('#srRemarkF').value, po=$('#srPostF').value, su=$('#srSubjF').value, t=$('#srText').value.trim().toLowerCase();
+  const V=SR.rows.filter(x=>(!lv||x.level===lv)&&(!rm||x.remark===rm)&&(!po||x.post===po)&&(!su||x.subject===su)&&
+    (!t||[x.roll,x.name,x.mobile].some(v=>String(v||'').toLowerCase().indexOf(t)>=0)));
+  const by={}; SR.rows.forEach(x=>{ const o=by[x.level]=by[x.level]||{t:0,f:0,r:0}; o.t++; if(x.remark==='Rejected') o.r++; else if(x.remark) o.f++; });
+  $('#srLvl').innerHTML=Object.keys(by).sort().map(k=>`<div><b>${esc(k)}</b>Total ${by[k].t}${k==='Chairman Board'?'':` &middot; Forwarded ${by[k].f} &middot; Rejected ${by[k].r}`}</div>`).join('') || '<div class="hint">No scans yet.</div>';
+  $('#srT').innerHTML='<tr><th>#</th><th>Roll Number</th><th>Mobile</th><th>Name</th><th>Subject</th><th>Post</th><th>Level / Location</th><th>Remark</th><th>Scanned @</th></tr>' +
+    (V.length ? V.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.roll)}</td><td>${esc(x.mobile)}</td><td>${esc(x.name)}</td><td>${esc(x.subject)}</td><td>${esc(x.post)}</td><td>${esc(x.level)}</td><td>${esc(x.remark)||'-'}</td><td>${esc(x.at)}</td></tr>`).join('')
+              : '<tr><td colspan="9" style="text-align:center;color:var(--muted)">No scan records.</td></tr>');
+  $('#srCount').textContent=`${V.length} record(s) shown of ${SR.rows.length}`;
+}
+function wireResults(){
+  const back=()=>{ $('#srApp').style.display='none'; $(SR.from==='scan'?'#scanApp':SR.from==='admin'?'#adminApp':'#app').style.display='block'; window.scrollTo(0,0); };
+  $('#srBack').addEventListener('click', back);
+  $('#srPw').addEventListener('keydown', e=>{ if(e.key==='Enter') $('#srLoginBtn').click(); });
+  $('#srLoginBtn').addEventListener('click', async ()=>{
+    const b=$('#srLoginBtn'); b.disabled=true; b.textContent='Please wait...'; $('#srMsg').textContent='';
+    try{ const r=await gs('adminLogin', $('#srId').value.trim(), $('#srPw').value); SR.token=r.token; $('#srPw').value=''; await srLoad(); }
+    catch(e){ srFail(e); }
+    b.disabled=false; b.textContent='Login';
+  });
+  $('#srRefresh').addEventListener('click', ()=>srLoad().catch(srFail));
+  $('#srLogout').addEventListener('click', async ()=>{ try{ await gs('adminLogout', SR.token); }catch(e){} SR.token=''; srShow(true); });
+  ['srLevelF','srRemarkF','srPostF','srSubjF'].forEach(i=>$('#'+i).addEventListener('change', srRender));
+  $('#srText').addEventListener('input', srRender);
+  const a=$('#admScan'); if(a) a.addEventListener('click', ()=>srOpen('admin'));
+  const s=$('#scResults'); if(s) s.addEventListener('click', ()=>srOpen('scan'));
+}
+
+/* ================= QR SCAN PAGE (PIN) ================= */
+const SC = { token:'', data:null };
+const lsGet = k => { try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } };
+const lsSet = (k,v) => { try{ if(v) localStorage.setItem(k,v); else localStorage.removeItem(k); }catch(e){} };
+function scShow(login){ $('#scLogin').hidden=!login; $('#scMain').hidden=login; }
+function scHist(){
+  const rows=(SC.data&&SC.data.scans)||[];
+  $('#scHist').innerHTML='<tr><th>Level / Location</th><th>Remark</th><th>Scanned @</th></tr>' +
+    (rows.length ? rows.map(x=>`<tr><td>${esc(x.level)}</td><td>${esc(x.remark)||'-'}</td><td>${esc(x.at)}</td></tr>`).join('') : '<tr><td colspan="3" style="color:var(--muted)">Not scanned yet.</td></tr>');
+}
+function scLevelChanged(){
+  const lv=$('#scLevel').value, ex=((SC.data&&SC.data.scans)||[]).find(x=>x.level===lv), chair=(lv==='Chairman Board'), rm=$('#scRemark');
+  rm.disabled=chair; rm.value = chair ? '' : (ex ? ex.remark : '');
+  $('#scNote').textContent = ex ? 'Already scanned at this level on '+ex.at+' - saving will update it.' : '';
+  $('#scMsg').textContent='';
+}
+async function scLoad(){
+  const r=await gs('scanLookup', SC.token, SCAN_ID); SC.data=r;
+  $('#scName').textContent=r.app.name;
+  $('#scInfo').innerHTML=[['Form Number',r.app.formNumber],['Roll Number',r.app.roll],['Mobile',r.app.mobile],['Post',r.app.post],['Subject',r.app.subject],['Venue',r.app.place]]
+    .map(p=>`<div><span>${p[0]}</span><b>${esc(p[1])}</b></div>`).join('');
+  $('#scLevel').innerHTML=opts(r.levels,'-- Select Level / Location --');
+  $('#scRemark').innerHTML=opts(r.remarks,'-- Select Remark --');
+  scHist(); scLevelChanged(); scShow(false);
+}
+function scFail(e){
+  if(/Session expired/i.test(e.message)){ lsSet('dav_scn',''); SC.token=''; $('#scLoginMsg').textContent=''; }
+  else $('#scLoginMsg').textContent=e.message;
+  scShow(true);
+}
+function scanStart(){
+  $('#app').style.display='none'; $('#scanApp').style.display='block';
+  wireResults();
+  $('#scLevel').addEventListener('change', scLevelChanged);
+  $('#scPin').addEventListener('keydown', e=>{ if(e.key==='Enter') $('#scLoginBtn').click(); });
+  $('#scLoginBtn').addEventListener('click', async ()=>{
+    const b=$('#scLoginBtn'); b.disabled=true; b.textContent='Please wait...'; $('#scLoginMsg').textContent='';
+    try{ const r=await gs('scanUnlock', $('#scPin').value.trim()); SC.token=r.token; lsSet('dav_scn', r.token); $('#scPin').value=''; await scLoad(); }
+    catch(e){ scFail(e); }
+    b.disabled=false; b.textContent='Unlock';
+  });
+  $('#scSave').addEventListener('click', async ()=>{
+    const lv=$('#scLevel').value, rm=$('#scRemark').value, m=$('#scMsg'), b=$('#scSave'); m.textContent=''; m.style.color='';
+    if(!lv){ m.style.color='var(--err)'; m.textContent='Please select Level / Location.'; return; }
+    if(lv!=='Chairman Board' && !rm){ m.style.color='var(--err)'; m.textContent='Please select Remark.'; return; }
+    b.disabled=true; b.textContent='Saving...';
+    try{
+      const r=await gs('scanSave', SC.token, SCAN_ID, lv, rm); SC.data.scans=r.scans; scHist();
+      m.textContent = (r.action==='updated' ? 'Updated' : 'Saved') + ' - ' + r.at;
+      $('#scNote').textContent = 'Already scanned at this level on '+r.at+' - saving again will update it.';
+    }catch(e){ if(/Session expired/i.test(e.message)) scFail(e); else { m.style.color='var(--err)'; m.textContent=e.message; } }
+    b.disabled=false; b.textContent='Save';
+  });
+  $('#scLogout').addEventListener('click', ()=>{ lsSet('dav_scn',''); SC.token=''; scShow(true); });
+  SC.token=lsGet('dav_scn');
+  if(SC.token) scLoad().catch(scFail); else scShow(true);
+}
+
+/* ---------- start ---------- */
+(function init(){
+  if (SCAN_ID) { scanStart(); return; }
+  if (BOOT && !BOOT.error) {                                   // ?id=... -> straight to print view
+    state.data=BOOT.data; state.photo=BOOT.photo; state.id=BOOT.id;
+    $('#backBtn').hidden=true;
+    showPrint(BOOT.data, BOOT.photo, BOOT.id); return;
+  }
+  if (BOOT && BOOT.error) { $('#homeErr').hidden=false; $('#homeErr').textContent=BOOT.error; }
+  wireNav(); wireAdmin(); wireResults();
+  if (CFG.error) {
+    $('#homeErr').hidden=false; $('#homeErr').textContent='Could not load form settings: '+CFG.error;
+    wireEvents(); initHome(); return;
+  }
+  buildTables(); mobileizeTables(); fillLists(); decorate(); wireEvents(); wirePhoto(); wireCert(); wireRoll();
+  updateDeps(); refreshPrefs(); refreshAll(); initHome();
+  if (MODE==='admin') admOpen();
+  if (MODE==='results') srOpen('app');
+})();
+
+</script>
+</body>
+</html>
